@@ -1,20 +1,30 @@
 class Apilinks {
-  static const String baseUrl = 'https://lockapp.site/main_app/';
+  static const String baseUrl = 'https://lockapp.site/main_app/doctors/';
 
   //set faceId model
   static const String linkSetFaceIdModel =
       'https://cac9-156-217-169-34.ngrok-free.app/submit';
 
-  //attendance
+  //focues on doctor
 
-  static const String linkGetUserAttendance =
-      "https://lockapp.site/main_app/attendance/get_user_attendance.php";
+  static const String linkGetDoctorMaterials =
+      "${baseUrl}get_doctor_materials.php";
 
-  static const String linkInsertUserAttendance =
-      "https://lockapp.site/main_app/attendance/insert_attendance.php";
+  static const String linkGetSessionsForAMaterial =
+      "${baseUrl}get_sessions.php";
 
-  static const String linkGetUserSessions =
-      "https://lockapp.site/main_app/attendance/get_user_sessions.php";
+  //focues on student
+
+  static const String linkGetStudentsAttendanceAtSession =
+      "${baseUrl}get_attending_users.php";
+
+  //doctor controls
+  static const String linkGetStudentsTotalAttendTimesAtOneMaterial =
+      "${baseUrl}count_student.php";
+
+  static const String linkGivePenality = "${baseUrl}remove_student.php";
+
+  static const String linkGiveBonus = "${baseUrl}add_student.php";
 }
 
 class ApiErrors {
