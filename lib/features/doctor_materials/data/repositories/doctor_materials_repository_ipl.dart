@@ -6,7 +6,7 @@ import 'package:lock_doctors/features/doctor_materials/data/model/sessions_model
 import 'package:lock_doctors/core/erorr/faliure.dart';
 import '../../domain/repository/doctor_materials_repository.dart';
 import '../model/attend_students_model.dart';
-import '../model/student_attend_count_model.dart';
+import '../model/total_student_attend_count_model.dart';
 
 class DoctorMaterialRepositoryImpl implements DoctorMaterialRepository {
   final DoctorMaterialsRemoteDataSource doctorMaterialsRemoteDataSource;
@@ -56,7 +56,7 @@ class DoctorMaterialRepositoryImpl implements DoctorMaterialRepository {
   }
 
   @override
-  Future<Either<Faliure, List<AttendStudentsModel?>>>
+  Future<Either<Faliure, List<AttendStudentsModel>>>
       getStudentsAttendanceAtSession({required String sessionId}) async {
     try {
       List<AttendStudentsModel> studentsAttendTheSession = [];

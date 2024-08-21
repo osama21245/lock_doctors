@@ -1,7 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
-import '../../domain/entity/student_attend_count.dart';
+import '../../domain/entity/total_student_attend_count.dart';
 
 class TotalStudentAttendCountModel extends TotalStudentAttendCount {
   TotalStudentAttendCountModel({required super.totalAttendanceAtMaterial});
