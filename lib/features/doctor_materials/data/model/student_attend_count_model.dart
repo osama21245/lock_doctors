@@ -3,13 +3,13 @@ import 'dart:convert';
 
 import '../../domain/entity/student_attend_count.dart';
 
-class StudentAttendCountModel extends StudentAttendCount {
-  StudentAttendCountModel({required super.totalAttendanceAtMaterial});
+class TotalStudentAttendCountModel extends TotalStudentAttendCount {
+  TotalStudentAttendCountModel({required super.totalAttendanceAtMaterial});
 
-  StudentAttendCountModel copyWith({
+  TotalStudentAttendCountModel copyWith({
     int? totalAttendanceAtMaterial,
   }) {
-    return StudentAttendCountModel(
+    return TotalStudentAttendCountModel(
       totalAttendanceAtMaterial:
           totalAttendanceAtMaterial ?? this.totalAttendanceAtMaterial,
     );
@@ -21,24 +21,24 @@ class StudentAttendCountModel extends StudentAttendCount {
     };
   }
 
-  factory StudentAttendCountModel.fromMap(Map<String, dynamic> map) {
-    return StudentAttendCountModel(
+  factory TotalStudentAttendCountModel.fromMap(Map<String, dynamic> map) {
+    return TotalStudentAttendCountModel(
       totalAttendanceAtMaterial: map['totalAttendanceAtMaterial'] as int,
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory StudentAttendCountModel.fromJson(String source) =>
-      StudentAttendCountModel.fromMap(
+  factory TotalStudentAttendCountModel.fromJson(String source) =>
+      TotalStudentAttendCountModel.fromMap(
           json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() =>
-      'StudentAttendCountModel(totalAttendanceAtMaterial: $totalAttendanceAtMaterial)';
+      'TotalStudentAttendCountModel(totalAttendanceAtMaterial: $totalAttendanceAtMaterial)';
 
   @override
-  bool operator ==(covariant StudentAttendCountModel other) {
+  bool operator ==(covariant TotalStudentAttendCountModel other) {
     if (identical(this, other)) return true;
 
     return other.totalAttendanceAtMaterial == totalAttendanceAtMaterial;
