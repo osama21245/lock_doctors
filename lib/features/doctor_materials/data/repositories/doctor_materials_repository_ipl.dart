@@ -1,93 +1,129 @@
-// import 'dart:convert';
-// import 'dart:io';
+import 'package:fpdart/fpdart.dart';
+import 'package:lock_doctors/core/utils/check_request_response.dart';
+import 'package:lock_doctors/features/doctor_materials/data/datasource/doctor_materials_remote_data_source.dart';
+import 'package:lock_doctors/features/doctor_materials/data/model/materials_model.dart';
+import 'package:lock_doctors/features/doctor_materials/data/model/sessions_model.dart';
+import 'package:lock_doctors/core/erorr/faliure.dart';
+import '../../domain/repository/doctor_materials_repository.dart';
+import '../model/attend_students_model.dart';
+import '../model/student_attend_count_model.dart';
 
-// import 'package:fpdart/fpdart.dart';
-// import 'package:shared_preferences/shared_preferences.dart';
-// import 'package:lock_doctors/core/erorr/exception.dart';
-// import 'package:lock_doctors/core/erorr/faliure.dart';
-// import 'package:lock_doctors/features/auth/data/datasources/auth_remote_data_source.dart';
-// import 'package:lock_doctors/features/auth/data/model/user_model.dart';
-// import 'package:lock_doctors/features/auth/domain/repository/auth_repository.dart';
+class DoctorMaterialRepositoryImpl implements DoctorMaterialRepository {
+  final DoctorMaterialsRemoteDataSource doctorMaterialsRemoteDataSource;
 
-// import '../../../../core/common/entities/response.dart';
-// import '../../../../core/const/shared_pref_constans.dart';
+  DoctorMaterialRepositoryImpl(this.doctorMaterialsRemoteDataSource);
 
-// class DoctorMaterialRepositoryImpl implements DoctorMaterialRepository {
-//   final AuthRemoteDataSource authRemoteDataSource;
+  @override
+  Future<Either<Faliure, List<MaterialsModel>>> getDoctorMaterials(
+      {required String doctorId}) async {
+    try {
+      List<MaterialsModel> materials = [];
+      final response = await doctorMaterialsRemoteDataSource.getDoctorMaterials(
+          doctorId: doctorId);
+      if (checkIsRequestSuccess(response)) {
+        List materialsInJsonForm = response["data"];
+        materials
+            .addAll(materialsInJsonForm.map((e) => MaterialsModel.fromMap(e)));
+        return right(materials);
+      } else {
+        return left(Faliure("there is no sessions"));
+      }
+    } catch (e) {
+      return left(Faliure(e.toString()));
+    }
+  }
 
-//   DoctorMaterialRepositoryImpl(this.authRemoteDataSource);
-//   @override
-//   Future<Either<Faliure, HostResponse>> loginInWithEmailAndPassword(
-//       {required String email, required String password}) async {
-//     try {
-//       // final res = await authRemoteDataSource.logInWithEmailAndPassword(
-//       //   email: email,
-//       //   password: password,
-//       // );
-//       final res = {
-//         "response": "success",
-//       };
-//       HostResponse response = HostResponse(response: res["response"]!);
-//       //save in sharedPref
-//       SharedPreferences prefs = await SharedPreferences.getInstance();
-//       UserModel userModel = UserModel(
-//           banDate: DateTime.now().toString(),
-//           id: "id",
-//           name: password,
-//           email: email,
-//           universityId: "",
-//           level: "");
-//       String userJson = jsonEncode(userModel.toJson());
-//       prefs.setString(SharedPrefrencesConstans.user, userJson);
-//       return right(response);
-//     } on ServerException catch (e) {
-//       return left(Faliure(e.message.toString()));
-//     }
-//   }
+  @override
+  Future<Either<Faliure, List<SessionsModel>>> getSessionForAMaterial(
+      {required String materialId}) async {
+    try {
+      List<SessionsModel> sessions = [];
+      final response =
+          await doctorMaterialsRemoteDataSource.getSessionForAMaterial(
+        materialId: materialId,
+      );
+      if (checkIsRequestSuccess(response)) {
+        List sessionsInJsonForm = response["data"];
+        sessions
+            .addAll(sessionsInJsonForm.map((e) => SessionsModel.fromMap(e)));
+        return right(sessions);
+      } else {
+        return left(Faliure("there is no sessions"));
+      }
+    } catch (e) {
+      return left(Faliure(e.toString()));
+    }
+  }
 
-//   @override
-//   Future<Either<Faliure, HostResponse>> signupWithEmailAndPassword(
-//       {required String email,
-//       required String password,
-//       required String name}) async {
-//     try {
-//       final res = await authRemoteDataSource.signUpWithEmailAndPassword(
-//         name: name,
-//         email: email,
-//         password: password,
-//       );
-//       HostResponse response = HostResponse(response: res["response"]);
-//       return right(response);
-//     } on ServerException catch (e) {
-//       return left(Faliure(e.message.toString()));
-//     }
-//   }
+  @override
+  Future<Either<Faliure, List<AttendStudentsModel?>>>
+      getStudentsAttendanceAtSession({required String sessionId}) async {
+    try {
+      List<AttendStudentsModel> studentsAttendTheSession = [];
+      final response = await doctorMaterialsRemoteDataSource
+          .getStudentsAttendanceAtSession(sessionId: sessionId);
+      if (checkIsRequestSuccess(response)) {
+        List studentsAttendTheSessionInJsonForm = response["data"];
+        studentsAttendTheSession.addAll(studentsAttendTheSessionInJsonForm
+            .map((e) => AttendStudentsModel.fromMap(e)));
+        return right(studentsAttendTheSession);
+      } else {
+        return left(Faliure("there is no sessions"));
+      }
+    } catch (e) {
+      return left(Faliure(e.toString()));
+    }
+  }
 
-//   @override
-//   Future<Either<Faliure, UserModel?>> getCurrentUserData() async {
-//     try {
-//       final user = await authRemoteDataSource.getCurrentUserData();
+  @override
+  Future<Either<Faliure, TotalStudentAttendCountModel>>
+      getStudentsTotalAttendTimesAtOneMaterial(
+          {required String materialId, required String studentId}) async {
+    try {
+      final response = await doctorMaterialsRemoteDataSource
+          .getStudentsTotalAttendTimesAtOneMaterial(
+              materialId: materialId, studentId: studentId);
+      if (checkIsRequestSuccess(response)) {
+        final TotalStudentAttendCountModel totalAttendingCountForOneMaterial =
+            TotalStudentAttendCountModel.fromMap(response["data"]);
+        return right(totalAttendingCountForOneMaterial);
+      } else {
+        return left(Faliure("there is no sessions"));
+      }
+    } catch (e) {
+      return left(Faliure(e.toString()));
+    }
+  }
 
-//       final userData = UserModel.fromMap(user as Map<String, dynamic>);
-//       return right(userData);
-//     } on ServerException catch (e) {
-//       return left(Faliure(e.message.toString()));
-//     }
-//   }
+  @override
+  Future<Either<Faliure, void>> giveBonus(
+      {required String sessionId, required String studentId}) async {
+    try {
+      final response = await doctorMaterialsRemoteDataSource.giveBonus(
+          sessionId: sessionId, studentId: studentId);
+      if (checkIsRequestSuccess(response)) {
+        return right(null);
+      } else {
+        return left(Faliure("there is no sessions"));
+      }
+    } catch (e) {
+      return left(Faliure(e.toString()));
+    }
+  }
 
-//   @override
-//   Future<Either<Faliure, HostResponse>> setStudFaceModel({
-//     required List<File> imageFile,
-//     required String studId,
-//   }) async {
-//     try {
-//       final res = await authRemoteDataSource.setStudFaceModel(
-//           imageFile: imageFile, studId: studId);
-//       HostResponse response = HostResponse.fromMap(res as Map<String, dynamic>);
-
-//       return right(response);
-//     } catch (e) {
-//       return left(Faliure(e.toString()));
-//     }
-//   }
-// }
+  @override
+  Future<Either<Faliure, void>> givePenality(
+      {required String sessionId, required String studentId}) async {
+    try {
+      final response = await doctorMaterialsRemoteDataSource.givePenality(
+          sessionId: sessionId, studentId: studentId);
+      if (checkIsRequestSuccess(response)) {
+        return right(null);
+      } else {
+        return left(Faliure("there is no sessions"));
+      }
+    } catch (e) {
+      return left(Faliure(e.toString()));
+    }
+  }
+}

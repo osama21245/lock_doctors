@@ -1,5 +1,5 @@
-class StudentAttendCount {
+class TotalStudentAttendCount {
   final int totalAttendanceAtMaterial;
 
-  StudentAttendCount({required this.totalAttendanceAtMaterial});
+  TotalStudentAttendCount({required this.totalAttendanceAtMaterial});
 }

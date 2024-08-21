@@ -9,18 +9,19 @@ import 'package:lock_doctors/features/doctor_materials/domain/entity/sessions.da
 import 'package:lock_doctors/features/doctor_materials/domain/entity/student_attend_count.dart';
 
 import '../../../../core/common/entities/response.dart';
+import '../entity/materials.dart';
 
 abstract interface class DoctorMaterialRepository {
-  Future<Either<Faliure, Material>> getDoctorMaterials(
+  Future<Either<Faliure, List<Materials>>> getDoctorMaterials(
       {required String doctorId});
 
-  Future<Either<Faliure, Sessions>> getSessionForAMaterial({
+  Future<Either<Faliure, List<Sessions>>> getSessionForAMaterial({
     required String materialId,
   });
-  Future<Either<Faliure, AttendStudents?>> getStudentsAttendanceAtSession(
+  Future<Either<Faliure, List<AttendStudents?>>> getStudentsAttendanceAtSession(
       {required String sessionId});
 
-  Future<Either<Faliure, StudentAttendCount>>
+  Future<Either<Faliure, TotalStudentAttendCount>>
       getStudentsTotalAttendTimesAtOneMaterial({
     required String materialId,
     required String studentId,
