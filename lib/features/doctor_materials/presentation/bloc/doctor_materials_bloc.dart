@@ -18,6 +18,7 @@ part 'doctor_materials_state.dart';
 class DoctorMaterials extends Bloc<DoctorMaterialsEvent, DoctorMaterialState> {
   final GetDoctorMaterials _getDoctorMaterials;
   final GetSessionsForMaterial _getSessionsForMaterial;
+  //
   final GetStudentsAttendanceForASession _getStudentsAttendanceForASession;
   final GetStudentTotalAttendTimeForOneMaterial
       _getStudentTotalAttendTimeForOneMaterial;
