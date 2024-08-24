@@ -15,31 +15,25 @@ import '../../domain/entity/materials.dart';
 part 'doctor_materials_event.dart';
 part 'doctor_materials_state.dart';
 
-class DoctorMaterials extends Bloc<DoctorMaterialsEvent, DoctorMaterialState> {
+class DoctorMaterialsBloc
+    extends Bloc<DoctorMaterialsEvent, DoctorMaterialsState> {
   final GetDoctorMaterials _getDoctorMaterials;
   final GetSessionsForMaterial _getSessionsForMaterial;
-  //
   final GetStudentsAttendanceForASession _getStudentsAttendanceForASession;
   final GetStudentTotalAttendTimeForOneMaterial
       _getStudentTotalAttendTimeForOneMaterial;
-  final GiveBonus _giveBonus;
-  final GivePenality _givePenality;
 
-  DoctorMaterials({
+  DoctorMaterialsBloc({
     required GetDoctorMaterials getDoctorMaterials,
     required GetSessionsForMaterial getSessionsForMaterial,
     required GetStudentsAttendanceForASession getStudentsAttendanceForASession,
     required GetStudentTotalAttendTimeForOneMaterial
         getStudentTotalAttendTimeForOneMaterial,
-    required GiveBonus giveBonus,
-    required GivePenality givePenality,
   })  : _getDoctorMaterials = getDoctorMaterials,
         _getSessionsForMaterial = getSessionsForMaterial,
         _getStudentsAttendanceForASession = getStudentsAttendanceForASession,
         _getStudentTotalAttendTimeForOneMaterial =
             getStudentTotalAttendTimeForOneMaterial,
-        _giveBonus = giveBonus,
-        _givePenality = givePenality,
         super(DoctorMaterialInitial()) {
     on<DoctorMaterialsGetDoctorMaterials>(_getDoctorMaterialsfun);
     on<DoctorMaterialsGetSessionForAMaterial>(
@@ -52,49 +46,49 @@ class DoctorMaterials extends Bloc<DoctorMaterialsEvent, DoctorMaterialState> {
 
   void _getDoctorMaterialsfun(
     DoctorMaterialsGetDoctorMaterials event,
-    Emitter<DoctorMaterialState> emit,
+    Emitter<DoctorMaterialsState> emit,
   ) async {
     emit(DoctorMaterialLoading());
     final res = await _getDoctorMaterials(
         GetDoctorMaterialsParams(doctorId: event.doctorId));
 
     res.fold(
-      (l) => emit(DoctorMaterialFailed(l.toString())),
+      (l) => emit(DoctorMaterialFailed(l.erorr.toString())),
       (r) => emit(DoctorMaterialGetMaterialsSuccess(r)),
     );
   }
 
   void _getDoctorSessionsForAMaterialfun(
     DoctorMaterialsGetSessionForAMaterial event,
-    Emitter<DoctorMaterialState> emit,
+    Emitter<DoctorMaterialsState> emit,
   ) async {
     emit(DoctorMaterialLoading());
     final res = await _getSessionsForMaterial(
         GetSessionsForMaterialParams(materialId: event.materialId));
 
     res.fold(
-      (l) => emit(DoctorMaterialFailed(l.toString())),
+      (l) => emit(DoctorMaterialFailed(l.erorr.toString())),
       (r) => emit(DoctorMaterialGetSessionForAMatterialSuccess(r)),
     );
   }
 
   void _getStudentsAttendanceForASessionfun(
     DoctorMaterialsGetStudentsAttendanceAtSession event,
-    Emitter<DoctorMaterialState> emit,
+    Emitter<DoctorMaterialsState> emit,
   ) async {
     emit(DoctorMaterialLoading());
     final res = await _getStudentsAttendanceForASession(
         GetStudentsAttendanceForASessionParams(sessionId: event.sessionId));
 
     res.fold(
-      (l) => emit(DoctorMaterialFailed(l.toString())),
+      (l) => emit(DoctorMaterialFailed(l.erorr.toString())),
       (r) => emit(DoctorMaterialGetAttendanceForASessionSuccess(r)),
     );
   }
 
   void _getStudentTotalAttendTimeForOneMaterialfun(
     DoctorMaterialsGetStudentTotalAttendTimeForOneMaterial event,
-    Emitter<DoctorMaterialState> emit,
+    Emitter<DoctorMaterialsState> emit,
   ) async {
     emit(DoctorMaterialLoading());
     final res = await _getStudentTotalAttendTimeForOneMaterial(
@@ -104,7 +98,7 @@ class DoctorMaterials extends Bloc<DoctorMaterialsEvent, DoctorMaterialState> {
     ));
 
     res.fold(
-      (l) => emit(DoctorMaterialFailed(l.toString())),
+      (l) => emit(DoctorMaterialFailed(l.erorr.toString())),
       (r) =>
           emit(DoctorMaterialGetStudentTotalAttendTimeForOneMaterialSuccess(r)),
     );

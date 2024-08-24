@@ -17,13 +17,13 @@ class TotalStudentAttendCountModel extends TotalStudentAttendCount {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'totalAttendanceAtMaterial': totalAttendanceAtMaterial,
+      'attendance_count': totalAttendanceAtMaterial,
     };
   }
 
   factory TotalStudentAttendCountModel.fromMap(Map<String, dynamic> map) {
     return TotalStudentAttendCountModel(
-      totalAttendanceAtMaterial: map['totalAttendanceAtMaterial'] as int,
+      totalAttendanceAtMaterial: map['attendance_count'] as int,
     );
   }
 
