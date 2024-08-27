@@ -4,95 +4,118 @@ import 'package:lock_doctors/features/doctor_materials/data/datasource/doctor_ma
 import 'package:lock_doctors/features/doctor_materials/data/model/materials_model.dart';
 import 'package:lock_doctors/features/doctor_materials/data/model/sessions_model.dart';
 import 'package:lock_doctors/core/erorr/faliure.dart';
+import '../../../../core/utils/try_and_catch.dart';
 import '../../domain/repository/doctor_materials_repository.dart';
 import '../model/attend_students_model.dart';
-import '../model/student_attend_count_model.dart';
+import '../model/total_student_attend_count_model.dart';
 
 class DoctorMaterialRepositoryImpl implements DoctorMaterialRepository {
   final DoctorMaterialsRemoteDataSource doctorMaterialsRemoteDataSource;
 
   DoctorMaterialRepositoryImpl(this.doctorMaterialsRemoteDataSource);
 
+//get materials =====================================================================
   @override
   Future<Either<Faliure, List<MaterialsModel>>> getDoctorMaterials(
       {required String doctorId}) async {
-    try {
-      List<MaterialsModel> materials = [];
+    return await executeTryAndCatch(() async {
       final response = await doctorMaterialsRemoteDataSource.getDoctorMaterials(
           doctorId: doctorId);
+
       if (checkIsRequestSuccess(response)) {
         List materialsInJsonForm = response["data"];
-        materials
-            .addAll(materialsInJsonForm.map((e) => MaterialsModel.fromMap(e)));
-        return right(materials);
+        return convertDataToMaterialsModel(materialsInJsonForm);
       } else {
-        return left(Faliure("there is no sessions"));
+        throw Exception("There are no sessions available.");
       }
-    } catch (e) {
-      return left(Faliure(e.toString()));
-    }
+    });
   }
 
+  List<MaterialsModel> convertDataToMaterialsModel(
+      List<dynamic> materialsInJsonForm) {
+    List<MaterialsModel> materials = [];
+    materials.addAll(materialsInJsonForm.map((e) => MaterialsModel.fromMap(e)));
+    return materials;
+  }
+
+//get sessions =====================================================================
   @override
   Future<Either<Faliure, List<SessionsModel>>> getSessionForAMaterial(
       {required String materialId}) async {
-    try {
-      List<SessionsModel> sessions = [];
+    return await executeTryAndCatch(() async {
       final response =
           await doctorMaterialsRemoteDataSource.getSessionForAMaterial(
         materialId: materialId,
       );
       if (checkIsRequestSuccess(response)) {
         List sessionsInJsonForm = response["data"];
-        sessions
-            .addAll(sessionsInJsonForm.map((e) => SessionsModel.fromMap(e)));
-        return right(sessions);
+        return convertDataToSessionsModel(sessionsInJsonForm);
       } else {
-        return left(Faliure("there is no sessions"));
+        throw Exception("There are no sessions available.");
       }
-    } catch (e) {
-      return left(Faliure(e.toString()));
-    }
+    });
   }
 
+  List<SessionsModel> convertDataToSessionsModel(
+      List<dynamic> sessionsInJsonForm) {
+    List<SessionsModel> sessions = [];
+    sessions.addAll(sessionsInJsonForm.map((e) => SessionsModel.fromMap(e)));
+    return sessions;
+  }
+
+// get students attendance at session ================================================
   @override
-  Future<Either<Faliure, List<AttendStudentsModel?>>>
+  Future<Either<Faliure, List<AttendStudentsModel>>>
       getStudentsAttendanceAtSession({required String sessionId}) async {
-    try {
-      List<AttendStudentsModel> studentsAttendTheSession = [];
+    return await executeTryAndCatch(() async {
       final response = await doctorMaterialsRemoteDataSource
           .getStudentsAttendanceAtSession(sessionId: sessionId);
       if (checkIsRequestSuccess(response)) {
         List studentsAttendTheSessionInJsonForm = response["data"];
-        studentsAttendTheSession.addAll(studentsAttendTheSessionInJsonForm
-            .map((e) => AttendStudentsModel.fromMap(e)));
-        return right(studentsAttendTheSession);
+
+        return convertDataToAttendStudentsModel(
+            studentsAttendTheSessionInJsonForm);
       } else {
-        return left(Faliure("there is no sessions"));
+        throw "there is no sessions";
       }
-    } catch (e) {
-      return left(Faliure(e.toString()));
-    }
+    });
   }
 
+  List<AttendStudentsModel> convertDataToAttendStudentsModel(
+      List<dynamic> attendStudentsInJsonForm) {
+    List<AttendStudentsModel> attendStudents = [];
+    attendStudents.addAll(
+        attendStudentsInJsonForm.map((e) => AttendStudentsModel.fromMap(e)));
+    return attendStudents;
+  }
+
+//get students total attend times at one material ================================
   @override
   Future<Either<Faliure, TotalStudentAttendCountModel>>
       getStudentsTotalAttendTimesAtOneMaterial(
           {required String materialId, required String studentId}) async {
-    try {
+    return await executeTryAndCatch(() async {
       final response = await doctorMaterialsRemoteDataSource
           .getStudentsTotalAttendTimesAtOneMaterial(
               materialId: materialId, studentId: studentId);
       if (checkIsRequestSuccess(response)) {
-        final TotalStudentAttendCountModel totalAttendingCountForOneMaterial =
-            TotalStudentAttendCountModel.fromMap(response["data"]);
-        return right(totalAttendingCountForOneMaterial);
+        List<dynamic> totalStudentAttendCountInJsonForm = response["data"];
+
+        return convertDataToTotalStudentAttendCountModel(
+            totalStudentAttendCountInJsonForm);
       } else {
-        return left(Faliure("there is no sessions"));
+        throw "there is no sessions";
       }
-    } catch (e) {
-      return left(Faliure(e.toString()));
-    }
+    });
+  }
+
+  TotalStudentAttendCountModel convertDataToTotalStudentAttendCountModel(
+      List<dynamic> totalStudentAttendCountInJsonForm) {
+    TotalStudentAttendCountModel totalStudentAttendCountModel =
+        TotalStudentAttendCountModel(
+            totalAttendanceAtMaterial: totalStudentAttendCountInJsonForm[0]
+                ["attendance_count"]);
+    return totalStudentAttendCountModel;
   }
 
   @override

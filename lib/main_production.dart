@@ -3,20 +3,29 @@ import 'package:lock_doctors/core/common/cubit/app_user/app_user_cubit.dart';
 import 'package:lock_doctors/core/routing/app_router.dart';
 import 'package:lock_doctors/core/theme/theme_data.dart';
 import 'package:lock_doctors/features/auth/presentation/pages/login_page.dart';
+import 'package:lock_doctors/features/doctor_materials/presentation/bloc/doctor_materials_bloc.dart';
 import 'package:lock_doctors/features/home/presentation/screens/home_screen.dart';
 import 'package:lock_doctors/init_dependencies.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'core/common/entities/user.dart';
 import 'core/utils/get_user_data.dart';
+import 'features/auth/presentation/bloc/auth_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initDependencies();
   await ScreenUtil.ensureScreenSize();
 
-  runApp(MyApp(
-    appRouter: AppRouter(),
+  runApp(MultiBlocProvider(
+    providers: [
+      BlocProvider(create: (_) => serviceLocator<AuthBloc>()),
+      BlocProvider(create: (_) => serviceLocator<DoctorMaterialsBloc>()),
+      BlocProvider(create: (_) => serviceLocator<AppUserCubit>()),
+    ],
+    child: MyApp(
+      appRouter: AppRouter(),
+    ),
   ));
 }
 

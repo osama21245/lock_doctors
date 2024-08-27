@@ -12,15 +12,24 @@ import 'package:lock_doctors/features/auth/domain/usecases/user_sign_in.dart';
 import 'package:lock_doctors/features/auth/domain/usecases/user_sign_up.dart';
 import 'package:lock_doctors/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:get_it/get_it.dart';
+import 'package:lock_doctors/features/doctor_materials/data/repositories/doctor_materials_repository_ipl.dart';
+import 'package:lock_doctors/features/doctor_materials/domain/usecases/get_doctor_materilas.dart';
+import 'package:lock_doctors/features/doctor_materials/domain/usecases/get_sessions_for_materials.dart';
+import 'package:lock_doctors/features/doctor_materials/domain/usecases/get_student_total_attend_time_for_one_material.dart';
+import 'package:lock_doctors/features/doctor_materials/domain/usecases/get_students_attendance_for_A_session.dart';
+import 'package:lock_doctors/features/doctor_materials/presentation/bloc/doctor_materials_bloc.dart';
 
 import 'features/auth/domain/usecases/set_stud_face_model.dart';
 import 'dart:async';
+
+import 'features/doctor_materials/data/datasource/doctor_materials_remote_data_source.dart';
+import 'features/doctor_materials/domain/repository/doctor_materials_repository.dart';
 
 final serviceLocator = GetIt.instance;
 
 Future<void> initDependencies() async {
   _initAuth();
-
+  _initDoctorMaterials();
   customErorrScreen();
 
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
@@ -52,4 +61,26 @@ void _initAuth() {
       getCurrentUser: serviceLocator(),
       setStudFaceModel: serviceLocator(),
       appUserCubit: serviceLocator()));
+}
+
+void _initDoctorMaterials() {
+  serviceLocator.registerFactory<DoctorMaterialsRemoteDataSource>(
+      () => DoctorMaterialsRemoteDataSourceImpl(serviceLocator()));
+
+  serviceLocator.registerFactory<DoctorMaterialRepository>(
+      () => DoctorMaterialRepositoryImpl(serviceLocator()));
+
+  serviceLocator.registerFactory(() => GetDoctorMaterials(serviceLocator()));
+  serviceLocator
+      .registerFactory(() => GetSessionsForMaterial(serviceLocator()));
+  serviceLocator.registerFactory(
+      () => GetStudentTotalAttendTimeForOneMaterial(serviceLocator()));
+  serviceLocator.registerFactory(
+      () => GetStudentsAttendanceForASession(serviceLocator()));
+
+  serviceLocator.registerLazySingleton(() => DoctorMaterialsBloc(
+      getDoctorMaterials: serviceLocator(),
+      getSessionsForMaterial: serviceLocator(),
+      getStudentsAttendanceForASession: serviceLocator(),
+      getStudentTotalAttendTimeForOneMaterial: serviceLocator()));
 }
