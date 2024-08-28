@@ -5,6 +5,12 @@ class Apilinks {
   static const String linkSetFaceIdModel =
       'https://cac9-156-217-169-34.ngrok-free.app/submit';
 
+  //Home links
+  static const String linkGetSemesters = "${baseUrl}get_semesters.php";
+
+  static const String linkGetTodaysSessions =
+      "${baseUrl}get_doctor_todays_sessions.php";
+
   //focues on doctor
 
   static const String linkGetDoctorMaterials =
