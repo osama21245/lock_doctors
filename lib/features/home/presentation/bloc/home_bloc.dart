@@ -9,11 +9,11 @@ import 'package:lock_doctors/features/home/domain/usecases/get_todays_sessions.d
 part 'home_event.dart';
 part 'home_state.dart';
 
-class HomesBloc extends Bloc<HomesEvent, HomesState> {
+class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final GetSemesters _getSemesters;
   final GetTodaysSessions _getTodaysSessions;
 
-  HomesBloc(
+  HomeBloc(
       {required GetSemesters getSemesters,
       required GetTodaysSessions getTodaysSessions})
       : _getSemesters = getSemesters,
@@ -23,22 +23,29 @@ class HomesBloc extends Bloc<HomesEvent, HomesState> {
     on<HomeGetTodaysSessions>(_getTodaysSessionsfun);
   }
 
+  List<Semesters> semesters = [];
+  int? selectedSemesterId;
+
   void _getSemestersfun(
     HomeGetSemesters event,
-    Emitter<HomesState> emit,
+    Emitter<HomeState> emit,
   ) async {
     emit(HomeLoading());
     final res = await _getSemesters(NoParams());
 
     res.fold(
       (l) => emit(HomeFailedState(l.erorr.toString())),
-      (r) => emit(HomeGetSemesterSuccessState(r)),
+      (r) {
+        semesters = r;
+        selectedSemesterId = r.last.semesterId;
+        emit(HomeGetSemesterSuccessState(semesters));
+      },
     );
   }
 
   void _getTodaysSessionsfun(
     HomeGetTodaysSessions event,
-    Emitter<HomesState> emit,
+    Emitter<HomeState> emit,
   ) async {
     emit(HomeLoading());
     final res = await _getTodaysSessions(

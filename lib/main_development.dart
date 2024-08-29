@@ -1,3 +1,4 @@
+import 'package:device_preview/device_preview.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lock_doctors/core/common/cubit/app_user/app_user_cubit.dart';
 import 'package:lock_doctors/core/routing/app_router.dart';
@@ -5,6 +6,7 @@ import 'package:lock_doctors/core/theme/theme_data.dart';
 import 'package:lock_doctors/features/auth/presentation/pages/login_page.dart';
 import 'package:lock_doctors/features/doctor_materials/presentation/bloc/doctor_materials_bloc.dart';
 import 'package:lock_doctors/features/doctor_materials/presentation/screens/testPage.dart';
+import 'package:lock_doctors/features/home/presentation/bloc/home_bloc.dart';
 import 'package:lock_doctors/features/home/presentation/screens/home_screen.dart';
 import 'package:lock_doctors/init_dependencies.dart';
 import 'package:flutter/material.dart';
@@ -18,16 +20,19 @@ void main() async {
   await initDependencies();
   await ScreenUtil.ensureScreenSize();
   print('User: development');
+
   runApp(MultiBlocProvider(
-    providers: [
-      BlocProvider(create: (_) => serviceLocator<AuthBloc>()),
-      BlocProvider(create: (_) => serviceLocator<DoctorMaterialsBloc>()),
-      BlocProvider(create: (_) => serviceLocator<AppUserCubit>()),
-    ],
-    child: MyApp(
-      appRouter: AppRouter(),
-    ),
-  ));
+      providers: [
+        BlocProvider(create: (_) => serviceLocator<AuthBloc>()),
+        BlocProvider(create: (_) => serviceLocator<DoctorMaterialsBloc>()),
+        BlocProvider(create: (_) => serviceLocator<HomeBloc>()),
+        BlocProvider(create: (_) => serviceLocator<AppUserCubit>()),
+      ],
+      child: DevicePreview(
+        builder: (context) => MyApp(
+          appRouter: AppRouter(),
+        ),
+      )));
 }
 
 class MyApp extends StatefulWidget {
@@ -56,8 +61,12 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
+      designSize: const Size(398.94, 863.83),
       minTextAdapt: true,
       child: MaterialApp(
+        useInheritedMediaQuery: true,
+        locale: DevicePreview.locale(context),
+        builder: DevicePreview.appBuilder,
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: AppTheme.appDarkTheme,
@@ -66,7 +75,7 @@ class _MyAppState extends State<MyApp> {
             if (state is AppUserIsLogIn) {
               return const HomeScreen();
             } else {
-              return const Test();
+              return const HomeScreen();
             }
           },
         ),

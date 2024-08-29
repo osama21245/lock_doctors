@@ -1,11 +1,11 @@
 part of 'home_bloc.dart';
 
 @immutable
-sealed class HomesEvent {}
+sealed class HomeEvent {}
 
-class HomeGetSemesters extends HomesEvent {}
+class HomeGetSemesters extends HomeEvent {}
 
-class HomeGetTodaysSessions extends HomesEvent {
+class HomeGetTodaysSessions extends HomeEvent {
   final String doctorId;
   final String day;
 

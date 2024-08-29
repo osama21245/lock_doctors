@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:lock_doctors/features/home/presentation/const/home_categories_class.dart';
+import 'package:lock_doctors/features/home/presentation/helpers/home_categories_class.dart';
 
 class CustomHomeCategories extends StatelessWidget {
   const CustomHomeCategories({super.key});
@@ -10,18 +10,25 @@ class CustomHomeCategories extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          "Services",
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13.sp),
+        Padding(
+          padding: EdgeInsets.symmetric(vertical: 8.0.h, horizontal: 16.0.w),
+          child: Text(
+            "Services",
+            style: TextStyle(
+              fontWeight: FontWeight.w900,
+              fontSize: 15.96.sp,
+              fontFamily: "Inter",
+            ),
+          ),
         ),
         Container(
           width: double.infinity,
-          constraints: BoxConstraints(maxHeight: 109.50.h),
+          constraints: BoxConstraints(maxHeight: 112.50.h),
           child: ListView.builder(
               scrollDirection: Axis.horizontal,
               itemCount: homeCategories.length,
               itemBuilder: (context, i) => Padding(
-                    padding: const EdgeInsets.all(4.5).r,
+                    padding: EdgeInsets.all(4.5.r),
                     child: Container(
                       padding:
                           EdgeInsets.symmetric(vertical: 12.w, horizontal: 1.w),
@@ -33,7 +40,7 @@ class CustomHomeCategories extends StatelessWidget {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Image.asset(homeCategories[i].image),
+                          Image.asset(homeCategories[i].image, width: 31.w),
                           Text(
                             textAlign: TextAlign.center,
                             homeCategories[i].name,
