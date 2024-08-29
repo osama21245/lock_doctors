@@ -21,15 +21,15 @@ class SemestersModel extends Semesters {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'semesterId': semesterId,
-      'semesterName': semesterName,
+      'semester_id': semesterId,
+      'semester_name': semesterName,
     };
   }
 
   factory SemestersModel.fromMap(Map<String, dynamic> map) {
     return SemestersModel(
-      semesterId: map['semesterId'] as int,
-      semesterName: map['semesterName'] as String,
+      semesterId: map['semester_id'] as int,
+      semesterName: map['semester_name'] as String,
     );
   }
 

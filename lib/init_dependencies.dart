@@ -18,18 +18,25 @@ import 'package:lock_doctors/features/doctor_materials/domain/usecases/get_sessi
 import 'package:lock_doctors/features/doctor_materials/domain/usecases/get_student_total_attend_time_for_one_material.dart';
 import 'package:lock_doctors/features/doctor_materials/domain/usecases/get_students_attendance_for_A_session.dart';
 import 'package:lock_doctors/features/doctor_materials/presentation/bloc/doctor_materials_bloc.dart';
+import 'package:lock_doctors/features/home/data/datasource/home_remote_datasourse.dart';
+import 'package:lock_doctors/features/home/domain/usecases/get_semesters.dart';
+import 'package:lock_doctors/features/home/domain/usecases/get_todays_sessions.dart';
 
 import 'features/auth/domain/usecases/set_stud_face_model.dart';
 import 'dart:async';
 
 import 'features/doctor_materials/data/datasource/doctor_materials_remote_data_source.dart';
 import 'features/doctor_materials/domain/repository/doctor_materials_repository.dart';
+import 'features/home/data/repositories/home_repository_impl.dart';
+import 'features/home/domain/repository/home_repository.dart';
+import 'features/home/presentation/bloc/home_bloc.dart';
 
 final serviceLocator = GetIt.instance;
 
 Future<void> initDependencies() async {
   _initAuth();
   _initDoctorMaterials();
+  _initHome();
   customErorrScreen();
 
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
@@ -83,4 +90,18 @@ void _initDoctorMaterials() {
       getSessionsForMaterial: serviceLocator(),
       getStudentsAttendanceForASession: serviceLocator(),
       getStudentTotalAttendTimeForOneMaterial: serviceLocator()));
+}
+
+void _initHome() {
+  serviceLocator.registerFactory<HomeRemoteDataSource>(
+      () => HomeRemoteDataSourceImpl(serviceLocator()));
+
+  serviceLocator.registerFactory<HomeRepository>(
+      () => HomeRepositoryImpl(serviceLocator()));
+
+  serviceLocator.registerFactory(() => GetSemesters(serviceLocator()));
+  serviceLocator.registerFactory(() => GetTodaysSessions(serviceLocator()));
+
+  serviceLocator.registerLazySingleton(() => HomeBloc(
+      getSemesters: serviceLocator(), getTodaysSessions: serviceLocator()));
 }
