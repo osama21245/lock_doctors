@@ -34,11 +34,11 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     final res = await _getSemesters(NoParams());
 
     res.fold(
-      (l) => emit(HomeFailedState(l.erorr.toString())),
+      (l) => emit(HomeFailed(l.erorr.toString())),
       (r) {
         semesters = r;
         selectedSemesterId = r.last.semesterId;
-        emit(HomeGetSemesterSuccessState(semesters));
+        emit(HomeGetSemesterSuccess(semesters));
       },
     );
   }
@@ -52,8 +52,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         GetTodaysSessionsParams(doctorId: event.doctorId, day: event.day));
 
     res.fold(
-      (l) => emit(HomeFailedState(l.erorr.toString())),
-      (r) => emit(HomeGetTodaysSessionsSuccessState(r)),
+      (l) => emit(HomeFailed(l.erorr.toString())),
+      (r) => emit(HomeGetTodaysSessionsSuccess(r)),
     );
   }
 }

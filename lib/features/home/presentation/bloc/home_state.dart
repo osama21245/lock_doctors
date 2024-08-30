@@ -7,22 +7,22 @@ final class HomeInitial extends HomeState {}
 
 final class HomeLoading extends HomeState {}
 
-final class HomeStopLoadingState extends HomeState {}
+final class HomeStopLoading extends HomeState {}
 
-final class HomeFailedState extends HomeState {
+final class HomeFailed extends HomeState {
   final String message;
 
-  HomeFailedState(this.message);
+  HomeFailed(this.message);
 }
 
-final class HomeGetSemesterSuccessState extends HomeState {
+final class HomeGetSemesterSuccess extends HomeState {
   final List<Semesters> semesters;
 
-  HomeGetSemesterSuccessState(this.semesters);
+  HomeGetSemesterSuccess(this.semesters);
 }
 
-final class HomeGetTodaysSessionsSuccessState extends HomeState {
+final class HomeGetTodaysSessionsSuccess extends HomeState {
   final List<TodaysSessions> todaysSessions;
 
-  HomeGetTodaysSessionsSuccessState(this.todaysSessions);
+  HomeGetTodaysSessionsSuccess(this.todaysSessions);
 }
