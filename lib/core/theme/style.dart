@@ -5,141 +5,80 @@ import 'package:lock_doctors/core/theme/app_pallete.dart';
 import 'package:lock_doctors/core/theme/font_weight_helper.dart';
 
 class TextStyles {
-  static TextStyle font24BlackBold = TextStyle(
-    fontSize: 24.sp,
-    fontWeight: FontWeightHelper.bold,
-    color: Colors.black,
-  );
-
-  static TextStyle font32BlueBold = TextStyle(
-    fontSize: 32.sp,
-    fontWeight: FontWeightHelper.bold,
-    color: AppPallete.primaryColor,
-  );
-
-  static TextStyle font13BlueSemiBold = TextStyle(
-    fontSize: 13.sp,
-    fontWeight: FontWeightHelper.semiBold,
-    color: AppPallete.primaryColor,
-  );
-
-  static TextStyle font13secondaryColorMedium = TextStyle(
-    fontSize: 13.sp,
-    fontWeight: FontWeightHelper.medium,
-    color: AppPallete.secondaryColor,
-  );
-
-  static TextStyle font13DarkBlueRegular = TextStyle(
-    fontSize: 13.sp,
-    fontWeight: FontWeightHelper.regular,
-    color: AppPallete.secondaryColor,
-  );
-
-  static TextStyle font24BlueBold = TextStyle(
-    fontSize: 24.sp,
-    fontWeight: FontWeightHelper.bold,
-    color: AppPallete.primaryColor,
-  );
-
-  static TextStyle font16WhiteSemiBold = TextStyle(
-    fontSize: 16.sp,
-    fontWeight: FontWeightHelper.semiBold,
-    color: Colors.white,
-  );
-
-  static TextStyle font13GrayRegular = TextStyle(
-    fontSize: 13.sp,
-    fontWeight: FontWeightHelper.regular,
-    color: AppPallete.thirdColor,
-  );
-
-  static TextStyle font12GrayRegular = TextStyle(
-    fontSize: 12.sp,
-    fontWeight: FontWeightHelper.regular,
-    color: AppPallete.thirdColor,
-  );
-
   static TextStyle font12GrayMedium = TextStyle(
-    fontSize: 12.sp,
-    fontWeight: FontWeightHelper.medium,
-    color: AppPallete.thirdColor,
-  );
+      fontFamily: "Inter",
+      color: AppPallete.greyFontColor,
+      fontWeight: FontWeightHelper.medium,
+      fontSize: 12.77.sp);
 
-  static TextStyle font12DarkBlueRegular = TextStyle(
-    fontSize: 12.sp,
-    fontWeight: FontWeightHelper.regular,
-    color: AppPallete.secondaryColor,
-  );
-
-  static TextStyle font12BlueRegular = TextStyle(
-    fontSize: 12.sp,
-    fontWeight: FontWeightHelper.regular,
-    color: AppPallete.primaryColor,
-  );
-
-  static TextStyle font13BlueRegular = TextStyle(
-    fontSize: 13.sp,
-    fontWeight: FontWeightHelper.regular,
-    color: AppPallete.primaryColor,
-  );
-
-  static TextStyle font14GrayRegular = TextStyle(
-    fontSize: 14.sp,
-    fontWeight: FontWeightHelper.regular,
-    color: AppPallete.thirdColor,
-  );
-
-  static TextStyle font14LightGrayRegular = TextStyle(
-    fontSize: 14.sp,
-    fontWeight: FontWeightHelper.regular,
-    color: AppPallete.thirdColor,
-  );
-
-  static TextStyle font14DarkBlueMedium = TextStyle(
-    fontSize: 14.sp,
-    fontWeight: FontWeightHelper.medium,
-    color: AppPallete.secondaryColor,
-  );
-
-  static TextStyle font14DarkBlueBold = TextStyle(
-    fontSize: 14.sp,
-    fontWeight: FontWeightHelper.bold,
-    color: AppPallete.secondaryColor,
-  );
-
-  static TextStyle font16WhiteMedium = TextStyle(
+  static TextStyle font16WhiteExtraBold = TextStyle(
+    fontWeight: FontWeightHelper.extraBold,
     fontSize: 16.sp,
+    color: AppPallete.whiteColor,
+    fontFamily: "Inter",
+  );
+
+  static TextStyle font15WhiteExtraBold = TextStyle(
+    fontWeight: FontWeightHelper.extraBold,
+    fontSize: 15.96.sp,
+    color: AppPallete.whiteColor,
+    fontFamily: "Inter",
+  );
+
+  static TextStyle font11GreyMedium = TextStyle(
+      fontFamily: "Inter",
+      color: AppPallete.greyFontColor,
+      fontWeight: FontWeightHelper.medium,
+      fontSize: 11.sp);
+
+  static TextStyle font14GreyExtraBold = TextStyle(
+    fontFamily: "Inter",
+    color: AppPallete.greyFontColor,
+    fontWeight: FontWeightHelper.extraBold,
+    fontSize: 14.89.sp,
+  );
+
+  static TextStyle font14LightGreyExtraBold = TextStyle(
+    fontFamily: "Inter",
+    color: AppPallete.lightGreyColor,
+    fontWeight: FontWeightHelper.extraBold,
+    fontSize: 14.89.sp,
+  );
+
+  static TextStyle font15GreyMedium = TextStyle(
     fontWeight: FontWeightHelper.medium,
-    color: Colors.white,
+    fontSize: 15.96.sp,
+    color: AppPallete.greyFontColor,
+    fontFamily: "Inter",
   );
 
-  static TextStyle font14BlueSemiBold = TextStyle(
-    fontSize: 14.sp,
-    fontWeight: FontWeightHelper.semiBold,
-    color: AppPallete.primaryColor,
-  );
+  static TextStyle font13TransperatWhiteBold = TextStyle(
+      fontFamily: "Inter",
+      color: AppPallete.transpentWhiteColor,
+      fontSize: 13.4.sp,
+      fontWeight: FontWeightHelper.bold);
 
-  static TextStyle font15DarkBlueMedium = TextStyle(
-    fontSize: 15.sp,
-    fontWeight: FontWeightHelper.medium,
-    color: AppPallete.secondaryColor,
-  );
+  static TextStyle font27DarkGreyExtraBold = TextStyle(
+      color: AppPallete.darkGreyColor,
+      height: 1.h,
+      fontFamily: "Inter",
+      fontSize: 27.79.sp,
+      fontWeight: FontWeightHelper.extraBold);
 
-  static TextStyle font18DarkBlueBold = TextStyle(
-    fontSize: 18.sp,
-    fontWeight: FontWeightHelper.bold,
-    color: AppPallete.secondaryColor,
-  );
+  static TextStyle font16WhiteLight = TextStyle(
+      color: AppPallete.whiteColor,
+      fontSize: 16.76.sp,
+      fontFamily: "Inter",
+      fontWeight: FontWeightHelper.light);
 
-  static TextStyle font18secondaryColorSemiBold = TextStyle(
-    fontSize: 18.sp,
-    fontWeight: FontWeightHelper.semiBold,
-    color: AppPallete.secondaryColor,
-  );
+  static TextStyle font13WhiteLight = TextStyle(
+      color: Colors.white,
+      fontSize: 13.4.sp,
+      fontFamily: "Inter",
+      fontWeight: FontWeightHelper.light);
 
-  static TextStyle font18WhiteMedium = TextStyle(
-    fontSize: 18.sp,
-    fontWeight: FontWeightHelper.medium,
-    color: Colors.white,
-  );
+  static TextStyle font11LigtBlueMedium = TextStyle(
+      color: AppPallete.lightBlueColor,
+      fontSize: 11.89.sp,
+      fontWeight: FontWeightHelper.medium);
 }

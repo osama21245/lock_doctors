@@ -1,11 +1,8 @@
-import 'package:device_preview/device_preview.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lock_doctors/core/common/cubit/app_user/app_user_cubit.dart';
 import 'package:lock_doctors/core/routing/app_router.dart';
 import 'package:lock_doctors/core/theme/theme_data.dart';
-import 'package:lock_doctors/features/auth/presentation/pages/login_page.dart';
 import 'package:lock_doctors/features/doctor_materials/presentation/bloc/doctor_materials_bloc.dart';
-import 'package:lock_doctors/features/doctor_materials/presentation/screens/testPage.dart';
 import 'package:lock_doctors/features/home/presentation/bloc/home_bloc.dart';
 import 'package:lock_doctors/features/home/presentation/screens/home_screen.dart';
 import 'package:lock_doctors/init_dependencies.dart';
@@ -28,10 +25,8 @@ void main() async {
         BlocProvider(create: (_) => serviceLocator<HomeBloc>()),
         BlocProvider(create: (_) => serviceLocator<AppUserCubit>()),
       ],
-      child: DevicePreview(
-        builder: (context) => MyApp(
-          appRouter: AppRouter(),
-        ),
+      child: MyApp(
+        appRouter: AppRouter(),
       )));
 }
 
@@ -64,9 +59,6 @@ class _MyAppState extends State<MyApp> {
       designSize: const Size(398.94, 863.83),
       minTextAdapt: true,
       child: MaterialApp(
-        useInheritedMediaQuery: true,
-        locale: DevicePreview.locale(context),
-        builder: DevicePreview.appBuilder,
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: AppTheme.appDarkTheme,

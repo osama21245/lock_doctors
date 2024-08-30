@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lock_doctors/core/helpers/spacer.dart';
+import 'package:lock_doctors/core/theme/style.dart';
 import 'package:lock_doctors/features/home/presentation/bloc/home_bloc.dart';
 
 class CustomDoctorProfile extends StatefulWidget {
@@ -49,30 +50,15 @@ class _CustomDoctorProfileState extends State<CustomDoctorProfile> {
             ),
           ),
           horizontalSpace(12),
-          SizedBox(
-            height: 51.h,
-            child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              verticalSpace(2),
-              Text(
-                "Good evening,",
-                style: TextStyle(
-                    fontFamily: "Inter",
-                    color: const Color(0xff60708F),
-                    fontWeight: FontWeight.w400,
-                    fontSize: 12.77.sp),
-              ),
-              verticalSpace(3),
-              Text(
-                "Osama Gamil",
-                style: TextStyle(
-                  fontWeight: FontWeight.w900,
-                  fontSize: 16.sp,
-                  fontFamily: "Inter",
-                ),
-              ),
-            ]),
-          ),
+          Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            verticalSpace(2),
+            Text(
+              "Good evening,",
+              style: TextStyles.font12GrayMedium,
+            ),
+            verticalSpace(3),
+            Text("Osama Gamil", style: TextStyles.font16WhiteExtraBold),
+          ]),
           const Spacer(),
           semesters.isEmpty
               ? const CircularProgressIndicator()

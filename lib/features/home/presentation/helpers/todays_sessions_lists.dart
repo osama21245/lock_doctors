@@ -11,3 +11,9 @@ List<String> todaySessionsCardimages = [
   "assets/image/red_lock_image.png",
   "assets/image/green_lock_image.png",
 ];
+
+List<String> todaysSessionsSliderImages = [
+  "assets/image/blue_Card.png",
+  "assets/image/green_card.png",
+  "assets/image/red_card.png"
+];

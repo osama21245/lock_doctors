@@ -66,7 +66,6 @@ dependencies:
   encrypt: ^5.0.3
   encrypted_shared_preferences: ^3.0.1
   carousel_slider: ^5.0.0
-  device_preview: ^1.2.0
 
 
 dev_dependencies:
