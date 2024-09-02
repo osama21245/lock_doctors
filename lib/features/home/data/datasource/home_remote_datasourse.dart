@@ -1,7 +1,6 @@
 import 'package:lock_doctors/core/utils/crud.dart';
-
 import '../../../../core/const/linksApi.dart';
-import '../../../../core/erorr/exception.dart';
+import '../../../../core/utils/try_and_catch.dart';
 
 abstract interface class HomeRemoteDataSource {
   Future<Map> getSemesters();
@@ -16,23 +15,17 @@ class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
 
   @override
   Future<Map> getSemesters() async {
-    try {
-      final response = await crud.postData(Apilinks.linkGetSemesters, {});
-      return response;
-    } catch (e) {
-      throw ServerException(e.toString());
-    }
+    return await executeTryAndCatchForDataLayer(() async {
+      return await crud.postData(Apilinks.linkGetSemesters, {});
+    });
   }
 
   @override
   Future<Map> getDoctorTodaysSessions(
       {required String doctorId, required String day}) async {
-    try {
-      final response = await crud.postData(
+    return await executeTryAndCatchForDataLayer(() async {
+      return await crud.postData(
           Apilinks.linkGetTodaysSessions, {"doctor_id": doctorId, "day": day});
-      return response;
-    } catch (e) {
-      throw ServerException(e.toString());
-    }
+    });
   }
 }
