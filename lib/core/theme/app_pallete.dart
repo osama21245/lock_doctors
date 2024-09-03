@@ -8,6 +8,7 @@ class AppPallete {
   static const Color transpentWhiteColor = Color.fromARGB(155, 248, 248, 248);
   static const Color lightBlueColor = Color(0xffB7FDF4);
   static const Color darkGreyColor = Color(0xff403E3E);
+  static const Color lightPurpleColor = Color(0xff6D57FC);
 
   static const Color transparentPerbel = Color.fromARGB(143, 214, 175, 247);
   static const Color transparentRed = Color.fromARGB(95, 246, 129, 120);

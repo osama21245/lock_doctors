@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
+import 'package:lock_doctors/core/common/widget/app_background_color.dart';
 import 'package:lock_doctors/core/utils/show_snack_bar.dart';
 import 'package:lock_doctors/features/home/presentation/widgets/custom_doctor_profile.dart';
 import 'package:lock_doctors/features/home/presentation/widgets/custom_home_categories.dart';
@@ -31,54 +32,51 @@ class HomeScreen extends StatelessWidget {
             showSnackBar(context, state.message);
           }
         },
-        child: Container(
-            decoration: const BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage('assets/image/background.png'),
-                    fit: BoxFit.fill)),
-            child: Column(
-              children: [
-                verticalSpace(19),
-                const CustomDoctorProfile(),
-                verticalSpace(7),
-                const CustomHomeCategories(),
-                const Spacer(),
-                Container(
-                  height: 570.h,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                      color: const Color(0xff272B40),
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(45.r),
-                      )),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      verticalSpace(25),
-                      const CustomSlider(
-                        doctorId: '4',
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.symmetric(
-                                vertical: 8.0.h, horizontal: 25.0.w),
-                            child: Text(
-                              "Today Sessions",
-                              textAlign: TextAlign.left,
-                              style: TextStyles.font15GreyMedium,
-                            ),
+        child: AppBackgroundColor(
+          screenContent: Column(
+            children: [
+              verticalSpace(19),
+              const CustomDoctorProfile(),
+              verticalSpace(7),
+              const CustomHomeCategories(),
+              const Spacer(),
+              Container(
+                height: 570.h,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                    color: const Color(0xff272B40),
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(45.r),
+                    )),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    verticalSpace(25),
+                    const CustomSlider(
+                      doctorId: '4',
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                              vertical: 8.0.h, horizontal: 25.0.w),
+                          child: Text(
+                            "Today Sessions",
+                            textAlign: TextAlign.left,
+                            style: TextStyles.font15GreyMedium,
                           ),
-                        ],
-                      ),
-                      verticalSpace(2),
-                      const CustomTodaysSessionsCard()
-                    ],
-                  ),
-                )
-              ],
-            )),
+                        ),
+                      ],
+                    ),
+                    verticalSpace(2),
+                    const CustomTodaysSessionsCard()
+                  ],
+                ),
+              )
+            ],
+          ),
+        ),
       ),
     );
   }
