@@ -3,8 +3,8 @@ import 'package:lock_doctors/core/common/cubit/app_user/app_user_cubit.dart';
 import 'package:lock_doctors/core/routing/app_router.dart';
 import 'package:lock_doctors/core/theme/theme_data.dart';
 import 'package:lock_doctors/features/doctor_materials/presentation/bloc/doctor_materials_bloc.dart';
+import 'package:lock_doctors/features/doctor_materials/presentation/screens/courses_screen.dart';
 import 'package:lock_doctors/features/home/presentation/bloc/home_bloc.dart';
-import 'package:lock_doctors/features/home/presentation/screens/home_screen.dart';
 import 'package:lock_doctors/init_dependencies.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -65,9 +65,13 @@ class _MyAppState extends State<MyApp> {
         home: BlocBuilder<AppUserCubit, AppUserState>(
           builder: (context, state) {
             if (state is AppUserIsLogIn) {
-              return const HomeScreen();
+              return const CoursesScreen(
+                level: "2",
+              );
             } else {
-              return const HomeScreen();
+              return const CoursesScreen(
+                level: "2",
+              );
             }
           },
         ),

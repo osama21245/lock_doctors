@@ -80,5 +80,25 @@ class TextStyles {
   static TextStyle font11LigtBlueMedium = TextStyle(
       color: AppPallete.lightBlueColor,
       fontSize: 11.89.sp,
+      fontFamily: "Inter",
       fontWeight: FontWeightHelper.medium);
+
+  static TextStyle font25WhiteBold = TextStyle(
+      color: AppPallete.whiteColor,
+      fontSize: 25.53.sp,
+      fontFamily: "Inter",
+      letterSpacing: 4.sp,
+      fontWeight: FontWeightHelper.bold);
+
+  static TextStyle font27WhiteLight = TextStyle(
+      color: AppPallete.whiteColor,
+      fontSize: 27.3.sp,
+      fontFamily: "Inter",
+      fontWeight: FontWeightHelper.light);
+
+  static TextStyle font27LightperpleSemiBold = TextStyle(
+      color: AppPallete.lightPurpleColor,
+      fontSize: 27.3.sp,
+      fontFamily: "Inter",
+      fontWeight: FontWeightHelper.semiBold);
 }
