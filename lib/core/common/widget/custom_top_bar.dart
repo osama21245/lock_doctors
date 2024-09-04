@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lock_doctors/core/helpers/extension.dart';
 
-import '../../../../core/theme/app_pallete.dart';
-import '../../../../core/theme/style.dart';
+import '../../theme/app_pallete.dart';
+import '../../theme/style.dart';
 
 class CustomTopBar extends StatelessWidget {
-  const CustomTopBar({super.key});
+  final String text;
+  const CustomTopBar({super.key, required this.text});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +24,7 @@ class CustomTopBar extends StatelessWidget {
                 color: AppPallete.whiteColor,
               )),
           Text(
-            "Courses",
+            text,
             style: TextStyles.font25WhiteBold,
           ),
           Image.asset(

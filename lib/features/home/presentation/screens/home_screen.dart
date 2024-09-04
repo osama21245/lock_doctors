@@ -11,7 +11,7 @@ import 'package:lock_doctors/features/home/presentation/widgets/custom_slider.da
 import '../../../../core/helpers/spacer.dart';
 import '../../../../core/theme/style.dart';
 import '../bloc/home_bloc.dart';
-import '../widgets/custom_todays_session_card.dart';
+import '../widgets/custom_todays_session.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -19,8 +19,9 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     void getTodaySessions() {
-      context.read<HomeBloc>().add(HomeGetTodaysSessions(
-          doctorId: "4", day: DateFormat.E().format(DateTime.now())));
+      context
+          .read<HomeBloc>()
+          .add(HomeGetTodaysSessions(doctorId: "4", day: "Fri"));
     }
 
     return Scaffold(
@@ -70,7 +71,7 @@ class HomeScreen extends StatelessWidget {
                       ],
                     ),
                     verticalSpace(2),
-                    const CustomTodaysSessionsCard()
+                    const CustomTodaysSessions()
                   ],
                 ),
               )
