@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'package:lock_doctors/features/home/presentation/helpers/todays_sessions_lists.dart';
+import 'package:lock_doctors/core/const/helping_lists.dart';
 import 'package:lock_doctors/features/home/presentation/widgets/custom_slider_card.dart';
 
 import '../bloc/home_bloc.dart';

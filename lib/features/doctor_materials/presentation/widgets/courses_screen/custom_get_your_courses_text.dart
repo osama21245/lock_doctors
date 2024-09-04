@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lock_doctors/core/helpers/spacer.dart';
 
-import '../../../../core/theme/style.dart';
+import '../../../../../core/theme/style.dart';
 
 class CustomGetYourCoursesText extends StatelessWidget {
   final String level;
