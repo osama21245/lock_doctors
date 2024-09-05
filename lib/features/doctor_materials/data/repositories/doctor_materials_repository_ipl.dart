@@ -18,7 +18,7 @@ class DoctorMaterialRepositoryImpl implements DoctorMaterialRepository {
   @override
   Future<Either<Faliure, List<MaterialsModel>>> getDoctorMaterials(
       {required String doctorId}) async {
-    return await executeTryAndCatch(() async {
+    return await executeTryAndCatchForDomainLayer(() async {
       final response = await doctorMaterialsRemoteDataSource.getDoctorMaterials(
           doctorId: doctorId);
 
@@ -42,7 +42,7 @@ class DoctorMaterialRepositoryImpl implements DoctorMaterialRepository {
   @override
   Future<Either<Faliure, List<SessionsModel>>> getSessionForAMaterial(
       {required String materialId}) async {
-    return await executeTryAndCatch(() async {
+    return await executeTryAndCatchForDomainLayer(() async {
       final response =
           await doctorMaterialsRemoteDataSource.getSessionForAMaterial(
         materialId: materialId,
@@ -67,7 +67,7 @@ class DoctorMaterialRepositoryImpl implements DoctorMaterialRepository {
   @override
   Future<Either<Faliure, List<AttendStudentsModel>>>
       getStudentsAttendanceAtSession({required String sessionId}) async {
-    return await executeTryAndCatch(() async {
+    return await executeTryAndCatchForDomainLayer(() async {
       final response = await doctorMaterialsRemoteDataSource
           .getStudentsAttendanceAtSession(sessionId: sessionId);
       if (checkIsRequestSuccess(response)) {
@@ -94,7 +94,7 @@ class DoctorMaterialRepositoryImpl implements DoctorMaterialRepository {
   Future<Either<Faliure, TotalStudentAttendCountModel>>
       getStudentsTotalAttendTimesAtOneMaterial(
           {required String materialId, required String studentId}) async {
-    return await executeTryAndCatch(() async {
+    return await executeTryAndCatchForDomainLayer(() async {
       final response = await doctorMaterialsRemoteDataSource
           .getStudentsTotalAttendTimesAtOneMaterial(
               materialId: materialId, studentId: studentId);

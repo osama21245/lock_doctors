@@ -1,7 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:dio/dio.dart';
 import 'package:http/http.dart' as http;
+import 'package:lock_doctors/core/networking/api_erorr_handler.dart';
 
 import '../erorr/exception.dart';
 
@@ -12,22 +14,37 @@ Map<String, String> myheaders = {'authorization': _basicAuth};
 class Crud {
   Future<Map> postData(String link, Map data) async {
     try {
-      var response = await http.post(Uri.parse(link),
-          body: data,
-          headers: {'Content-Type': 'application/x-www-form-urlencoded'});
+      var response = await http.post(
+        Uri.parse(link),
+        body: data,
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+      );
       print('Response status: ${response.statusCode}');
       print('Response body: ${response.body}');
 
-      if (response.statusCode == 200 || response.statusCode == 201) {
+      if (response.statusCode == ResponseCode.SUCCESS ||
+          response.statusCode == ResponseCode.NO_CONTENT) {
         Map responseBody = jsonDecode(response.body);
         print(responseBody);
         return responseBody;
       } else {
-        throw ServerException("Server Error: ${response.body}");
+        // Handle the error based on the response code
+        throw ErrorHandler.handle(
+          DioException(
+            response: Response(
+              statusCode: response.statusCode,
+              statusMessage: response.body,
+              requestOptions: RequestOptions(path: link),
+            ),
+            requestOptions: RequestOptions(path: link),
+          ),
+        );
       }
     } catch (e) {
-      print(e);
-      throw ServerException(e.toString());
+      // Use ErrorHandler to manage exceptions and rethrow with a proper message
+      final serverException = ErrorHandler.handle(e).serverException;
+      print('Handled error: ${serverException.message}');
+      throw serverException.message; // Rethrow with the handled error message
     }
   }
 
@@ -48,7 +65,7 @@ class Crud {
       final res = decodedResponse;
       return res;
     } else {
-      throw ServerException("Server Error");
+      throw ServerException(message: "Server Error");
     }
   }
 

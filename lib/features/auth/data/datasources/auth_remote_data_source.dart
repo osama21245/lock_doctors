@@ -36,7 +36,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
           .postData(Apilinks.baseUrl, {"email": email, "password": password});
       return response;
     } catch (e) {
-      throw ServerException(e.toString());
+      throw ServerException(message: e.toString());
     }
   }
 
@@ -50,7 +50,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
           {"email": email, "password": password, "name": name});
       return response;
     } catch (e) {
-      throw ServerException(e.toString());
+      throw ServerException(message: e.toString());
     }
   }
 
