@@ -2,7 +2,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lock_doctors/core/common/cubit/app_user/app_user_cubit.dart';
 import 'package:lock_doctors/core/routing/app_router.dart';
 import 'package:lock_doctors/core/theme/theme_data.dart';
-import 'package:lock_doctors/features/doctor_materials/presentation/bloc/doctor_materials_bloc.dart';
+import 'package:lock_doctors/features/doctor_materials/presentation/bloc/doctor_bloc.dart';
 import 'package:lock_doctors/features/doctor_materials/presentation/screens/courses_screen.dart';
 import 'package:lock_doctors/features/doctor_materials/presentation/screens/levels_screen.dart';
 import 'package:lock_doctors/features/home/presentation/bloc/home_bloc.dart';
@@ -22,7 +22,7 @@ void main() async {
   runApp(MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => serviceLocator<AuthBloc>()),
-        BlocProvider(create: (_) => serviceLocator<DoctorMaterialsBloc>()),
+        BlocProvider(create: (_) => serviceLocator<DoctorBloc>()),
         BlocProvider(create: (_) => serviceLocator<HomeBloc>()),
         BlocProvider(create: (_) => serviceLocator<AppUserCubit>()),
       ],
@@ -66,9 +66,13 @@ class _MyAppState extends State<MyApp> {
         home: BlocBuilder<AppUserCubit, AppUserState>(
           builder: (context, state) {
             if (state is AppUserIsLogIn) {
-              return const LevelsScreen();
+              return const CoursesScreen(
+                level: '2',
+              );
             } else {
-              return const LevelsScreen();
+              return const CoursesScreen(
+                level: '2',
+              );
             }
           },
         ),

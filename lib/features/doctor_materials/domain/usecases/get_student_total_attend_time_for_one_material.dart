@@ -1,6 +1,6 @@
 import 'package:fpdart/src/either.dart';
 import 'package:lock_doctors/features/doctor_materials/domain/entity/total_student_attend_count.dart';
-import 'package:lock_doctors/features/doctor_materials/domain/repository/doctor_materials_repository.dart';
+import 'package:lock_doctors/features/doctor_materials/domain/repository/doctor_repository.dart';
 
 import '../../../../core/erorr/faliure.dart';
 import '../../../../core/usecase/usecase.dart';
@@ -9,15 +9,14 @@ class GetStudentTotalAttendTimeForOneMaterial
     implements
         UseCase<TotalStudentAttendCount,
             GetStudentTotalAttendTimeForOneMaterialParams> {
-  DoctorMaterialRepository doctorMaterialRepository;
-  GetStudentTotalAttendTimeForOneMaterial(this.doctorMaterialRepository);
+  DoctorRepository doctorRepository;
+  GetStudentTotalAttendTimeForOneMaterial(this.doctorRepository);
 
   @override
   Future<Either<Faliure, TotalStudentAttendCount>> call(
       GetStudentTotalAttendTimeForOneMaterialParams
           getStudentTotalAttendTimeForOneMaterialParams) async {
-    return await doctorMaterialRepository
-        .getStudentsTotalAttendTimesAtOneMaterial(
+    return await doctorRepository.getStudentsTotalAttendTimesAtOneMaterial(
       materialId: getStudentTotalAttendTimeForOneMaterialParams.materialId,
       studentId: getStudentTotalAttendTimeForOneMaterialParams.studentId,
     );

@@ -1,11 +1,52 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class CustomCourses extends StatelessWidget {
+import '../../../domain/entity/materials.dart';
+import '../../bloc/doctor_bloc.dart';
+
+class CustomCourses extends StatefulWidget {
   const CustomCourses({super.key});
 
   @override
+  State<CustomCourses> createState() => _CustomCoursesState();
+}
+
+class _CustomCoursesState extends State<CustomCourses> {
+  @override
+  void initState() {
+    context.read<DoctorBloc>().add(DoctorGetDoctorMaterials(doctorId: "4"));
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    return BlocBuilder<DoctorBloc, DoctorState>(
+      builder: (context, state) {
+        if (state is DoctorLoading) {
+          return const Center(child: CircularProgressIndicator());
+        } else if (state is DoctorGetMaterialsSuccess) {
+          return Expanded(
+            child: ListView.builder(
+              itemCount: state.materials.length,
+              itemBuilder: (context, i) => customCourseCard(state.materials[i]),
+            ),
+          );
+        } else if (state is DoctorFailed) {
+          return Container(
+            height: 500,
+            color: Colors.red,
+            child: SizedBox(
+              child: Text(state.message),
+            ),
+          );
+        }
+        return const SizedBox();
+      },
+    );
+  }
+
+  Container customCourseCard(Materials material) {
     return Container(
       width: 334.w,
       height: 100.h,
@@ -24,11 +65,11 @@ class CustomCourses extends StatelessWidget {
                 height: 84.h,
                 fit: BoxFit.cover,
               )),
-          const Column(
+          Column(
             children: [
-              Text("title"),
-              Text("Subtitle"),
-              Text("Total Sessions"),
+              Text(material.materialName),
+              const Text("Subtitle"),
+              Text("Total Sessions : ${material.totalsessions}"),
             ],
           ),
           IconButton(onPressed: () {}, icon: const Icon(Icons.chevron_right))
