@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lock_doctors/core/utils/show_snack_bar.dart';
-import 'package:lock_doctors/features/doctor_materials/presentation/bloc/doctor_materials_bloc.dart';
+import 'package:lock_doctors/features/doctor_materials/presentation/bloc/doctor_bloc.dart';
 
 class Test extends StatefulWidget {
   const Test({super.key});
@@ -13,8 +13,8 @@ class Test extends StatefulWidget {
 class _TestState extends State<Test> {
   @override
   void initState() {
-    context.read<DoctorMaterialsBloc>().add(
-          DoctorMaterialsGetStudentTotalAttendTimeForOneMaterial(
+    context.read<DoctorBloc>().add(
+          DoctorGetStudentTotalAttendTimeForOneMaterial(
               materialId: "4", studentId: '2'),
         );
     super.initState();
@@ -22,12 +22,11 @@ class _TestState extends State<Test> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<DoctorMaterialsBloc, DoctorMaterialsState>(
+    return BlocConsumer<DoctorBloc, DoctorState>(
       listener: (context, state) {
-        if (state
-            is DoctorMaterialGetStudentTotalAttendTimeForOneMaterialSuccess) {
+        if (state is DoctorGetStudentTotalAttendTimeForOneMaterialSuccess) {
           print(state.totalAttendTimes);
-        } else if (state is DoctorMaterialFailed) {
+        } else if (state is DoctorFailed) {
           showSnackBar(context, state.message);
           print("fail");
         }

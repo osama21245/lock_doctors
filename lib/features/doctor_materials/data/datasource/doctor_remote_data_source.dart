@@ -2,8 +2,11 @@ import 'package:lock_doctors/core/utils/crud.dart';
 import '../../../../core/const/linksApi.dart';
 import '../../../../core/utils/try_and_catch.dart';
 
-abstract interface class DoctorMaterialsRemoteDataSource {
+abstract interface class DoctorRemoteDataSource {
   Future<Map> getDoctorMaterials({required String doctorId});
+
+  Future<Map> getDoctorLevels(
+      {required String doctorId, required String semesterId});
 
   Future<Map> getSessionForAMaterial({
     required String materialId,
@@ -26,16 +29,24 @@ abstract interface class DoctorMaterialsRemoteDataSource {
   });
 }
 
-class DoctorMaterialsRemoteDataSourceImpl
-    implements DoctorMaterialsRemoteDataSource {
+class DoctorRemoteDataSourceImpl implements DoctorRemoteDataSource {
   final Crud crud;
-  DoctorMaterialsRemoteDataSourceImpl(this.crud);
+  DoctorRemoteDataSourceImpl(this.crud);
 
   @override
   Future<Map> getDoctorMaterials({required String doctorId}) async {
     return executeTryAndCatchForDataLayer(() async {
       return await crud.postData(
           Apilinks.linkGetDoctorMaterials, {"material_doctorid": doctorId});
+    });
+  }
+
+  @override
+  Future<Map> getDoctorLevels(
+      {required String doctorId, required String semesterId}) async {
+    return executeTryAndCatchForDataLayer(() async {
+      return await crud.postData(Apilinks.linkGetDoctorLevels,
+          {"doctor_id": doctorId, "semester_id": semesterId});
     });
   }
 

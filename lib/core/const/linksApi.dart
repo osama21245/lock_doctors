@@ -16,6 +16,8 @@ class Apilinks {
   static const String linkGetDoctorMaterials =
       "${baseUrl}get_doctor_materials.php";
 
+  static const String linkGetDoctorLevels = "${baseUrl}get_doctor_levels.php";
+
   static const String linkGetSessionsForAMaterial =
       "${baseUrl}get_sessions.php";
 

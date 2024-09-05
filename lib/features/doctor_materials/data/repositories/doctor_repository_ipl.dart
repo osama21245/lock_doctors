@@ -1,32 +1,33 @@
 import 'package:fpdart/fpdart.dart';
 import 'package:lock_doctors/core/utils/check_request_response.dart';
-import 'package:lock_doctors/features/doctor_materials/data/datasource/doctor_materials_remote_data_source.dart';
+import 'package:lock_doctors/features/doctor_materials/data/datasource/doctor_remote_data_source.dart';
+import 'package:lock_doctors/features/doctor_materials/data/model/levels_model.dart';
 import 'package:lock_doctors/features/doctor_materials/data/model/materials_model.dart';
 import 'package:lock_doctors/features/doctor_materials/data/model/sessions_model.dart';
 import 'package:lock_doctors/core/erorr/faliure.dart';
 import '../../../../core/utils/try_and_catch.dart';
-import '../../domain/repository/doctor_materials_repository.dart';
+import '../../domain/repository/doctor_repository.dart';
 import '../model/attend_students_model.dart';
 import '../model/total_student_attend_count_model.dart';
 
-class DoctorMaterialRepositoryImpl implements DoctorMaterialRepository {
-  final DoctorMaterialsRemoteDataSource doctorMaterialsRemoteDataSource;
+class DoctorRepositoryImpl implements DoctorRepository {
+  final DoctorRemoteDataSource doctorRemoteDataSource;
 
-  DoctorMaterialRepositoryImpl(this.doctorMaterialsRemoteDataSource);
+  DoctorRepositoryImpl(this.doctorRemoteDataSource);
 
 //get materials =====================================================================
   @override
   Future<Either<Faliure, List<MaterialsModel>>> getDoctorMaterials(
       {required String doctorId}) async {
     return await executeTryAndCatchForDomainLayer(() async {
-      final response = await doctorMaterialsRemoteDataSource.getDoctorMaterials(
-          doctorId: doctorId);
+      final response =
+          await doctorRemoteDataSource.getDoctorMaterials(doctorId: doctorId);
 
       if (checkIsRequestSuccess(response)) {
         List materialsInJsonForm = response["data"];
         return convertDataToMaterialsModel(materialsInJsonForm);
       } else {
-        throw Exception("There are no sessions available.");
+        throw Exception("There are no Materials available.");
       }
     });
   }
@@ -38,13 +39,36 @@ class DoctorMaterialRepositoryImpl implements DoctorMaterialRepository {
     return materials;
   }
 
+  //get levels =====================================================================
+
+  @override
+  Future<Either<Faliure, List<LevelsModel>>> getDoctorLevels(
+      {required String doctorId, required String semesterId}) async {
+    return await executeTryAndCatchForDomainLayer(() async {
+      final response = await doctorRemoteDataSource.getDoctorLevels(
+          doctorId: doctorId, semesterId: semesterId);
+
+      if (checkIsRequestSuccess(response)) {
+        List levlesInJsonForm = response["data"];
+        return convertDataToLevelsModel(levlesInJsonForm);
+      } else {
+        throw Exception("There are no Levels available.");
+      }
+    });
+  }
+
+  List<LevelsModel> convertDataToLevelsModel(List<dynamic> levlesInJsonForm) {
+    List<LevelsModel> levles = [];
+    levles.addAll(levlesInJsonForm.map((e) => LevelsModel.fromMap(e)));
+    return levles;
+  }
+
 //get sessions =====================================================================
   @override
   Future<Either<Faliure, List<SessionsModel>>> getSessionForAMaterial(
       {required String materialId}) async {
     return await executeTryAndCatchForDomainLayer(() async {
-      final response =
-          await doctorMaterialsRemoteDataSource.getSessionForAMaterial(
+      final response = await doctorRemoteDataSource.getSessionForAMaterial(
         materialId: materialId,
       );
       if (checkIsRequestSuccess(response)) {
@@ -68,7 +92,7 @@ class DoctorMaterialRepositoryImpl implements DoctorMaterialRepository {
   Future<Either<Faliure, List<AttendStudentsModel>>>
       getStudentsAttendanceAtSession({required String sessionId}) async {
     return await executeTryAndCatchForDomainLayer(() async {
-      final response = await doctorMaterialsRemoteDataSource
+      final response = await doctorRemoteDataSource
           .getStudentsAttendanceAtSession(sessionId: sessionId);
       if (checkIsRequestSuccess(response)) {
         List studentsAttendTheSessionInJsonForm = response["data"];
@@ -95,8 +119,8 @@ class DoctorMaterialRepositoryImpl implements DoctorMaterialRepository {
       getStudentsTotalAttendTimesAtOneMaterial(
           {required String materialId, required String studentId}) async {
     return await executeTryAndCatchForDomainLayer(() async {
-      final response = await doctorMaterialsRemoteDataSource
-          .getStudentsTotalAttendTimesAtOneMaterial(
+      final response =
+          await doctorRemoteDataSource.getStudentsTotalAttendTimesAtOneMaterial(
               materialId: materialId, studentId: studentId);
       if (checkIsRequestSuccess(response)) {
         List<dynamic> totalStudentAttendCountInJsonForm = response["data"];
@@ -122,7 +146,7 @@ class DoctorMaterialRepositoryImpl implements DoctorMaterialRepository {
   Future<Either<Faliure, void>> giveBonus(
       {required String sessionId, required String studentId}) async {
     try {
-      final response = await doctorMaterialsRemoteDataSource.giveBonus(
+      final response = await doctorRemoteDataSource.giveBonus(
           sessionId: sessionId, studentId: studentId);
       if (checkIsRequestSuccess(response)) {
         return right(null);
@@ -138,7 +162,7 @@ class DoctorMaterialRepositoryImpl implements DoctorMaterialRepository {
   Future<Either<Faliure, void>> givePenality(
       {required String sessionId, required String studentId}) async {
     try {
-      final response = await doctorMaterialsRemoteDataSource.givePenality(
+      final response = await doctorRemoteDataSource.givePenality(
           sessionId: sessionId, studentId: studentId);
       if (checkIsRequestSuccess(response)) {
         return right(null);

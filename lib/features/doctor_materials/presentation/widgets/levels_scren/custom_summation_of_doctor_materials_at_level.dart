@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:lock_doctors/core/const/helping_lists.dart';
 import 'package:lock_doctors/core/helpers/spacer.dart';
 import 'package:lock_doctors/core/theme/style.dart';
+import 'package:lock_doctors/features/doctor_materials/domain/entity/levels.dart';
 
 import '../../../../../core/theme/font_weight_helper.dart';
 import '../../../../../core/utils/get_data_from_static_lists.dart';
-import '../../bloc/doctor_materials_bloc.dart';
+import '../../bloc/doctor_bloc.dart';
 
 class CustomSummationOfDoctorMaterialsAtLevel extends StatefulWidget {
   const CustomSummationOfDoctorMaterialsAtLevel({super.key});
@@ -20,6 +20,14 @@ class CustomSummationOfDoctorMaterialsAtLevel extends StatefulWidget {
 class _CustomSummationOfDoctorMaterialsAtLevelState
     extends State<CustomSummationOfDoctorMaterialsAtLevel> {
   @override
+  void initState() {
+    context
+        .read<DoctorBloc>()
+        .add(DoctorGetDoctorLevels(doctorId: "4", semesterId: "2"));
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(top: 14.0.h, left: 13.w),
@@ -30,19 +38,24 @@ class _CustomSummationOfDoctorMaterialsAtLevelState
             "Your Levels:",
             style: TextStyles.font23WhiteMedium,
           ),
-          BlocBuilder<DoctorMaterialsBloc, DoctorMaterialsState>(
+          BlocBuilder<DoctorBloc, DoctorState>(
             builder: (context, state) {
-              return Padding(
-                padding: EdgeInsets.only(left: 11.0.w, top: 8.h),
-                child: SizedBox(
-                  height: 90.h,
-                  child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: 4,
-                      itemBuilder: (context, i) =>
-                          yourMaterialsForLevelCard(i)),
-                ),
-              );
+              if (state is DoctorLoading) {
+                return const Center(child: CircularProgressIndicator());
+              } else if (state is DoctorGetLevelsSuccess) {
+                return Padding(
+                  padding: EdgeInsets.only(left: 11.0.w, top: 8.h),
+                  child: SizedBox(
+                    height: 90.h,
+                    child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: state.levels.length,
+                        itemBuilder: (context, i) =>
+                            yourMaterialsForLevelCard(i, state.levels[i])),
+                  ),
+                );
+              }
+              return const SizedBox();
             },
           )
         ],
@@ -50,7 +63,7 @@ class _CustomSummationOfDoctorMaterialsAtLevelState
     );
   }
 
-  Padding yourMaterialsForLevelCard(int i) {
+  Padding yourMaterialsForLevelCard(int i, Levels level) {
     return Padding(
       padding: const EdgeInsets.only(
         right: 5.0,
@@ -70,7 +83,7 @@ class _CustomSummationOfDoctorMaterialsAtLevelState
               constraints: BoxConstraints(maxWidth: 75.w),
               child: Text(
                 maxLines: 2,
-                "Your Materials for level ${i + 1}",
+                "Your Materials for level ${level.level}",
                 style: TextStyle(
                     color: getTextColorForYourMaterialsForLevelCard(i),
                     fontSize: 10.h,
@@ -84,7 +97,7 @@ class _CustomSummationOfDoctorMaterialsAtLevelState
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "${i + 1}",
+                  "${level.totalNumberOfMaterialsForLevel}",
                   style: TextStyle(
                       color: getTextColorForYourMaterialsForLevelCard(i),
                       fontSize: 24.h,

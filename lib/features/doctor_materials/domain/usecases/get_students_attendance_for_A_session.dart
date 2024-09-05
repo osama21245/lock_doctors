@@ -1,7 +1,7 @@
 import 'package:fpdart/src/either.dart';
 import 'package:lock_doctors/features/doctor_materials/domain/entity/attend_students.dart';
 import 'package:lock_doctors/features/doctor_materials/domain/entity/sessions.dart';
-import 'package:lock_doctors/features/doctor_materials/domain/repository/doctor_materials_repository.dart';
+import 'package:lock_doctors/features/doctor_materials/domain/repository/doctor_repository.dart';
 
 import '../../../../core/erorr/faliure.dart';
 import '../../../../core/usecase/usecase.dart';
@@ -9,14 +9,14 @@ import '../../../../core/usecase/usecase.dart';
 class GetStudentsAttendanceForASession
     implements
         UseCase<List<AttendStudents>, GetStudentsAttendanceForASessionParams> {
-  DoctorMaterialRepository doctorMaterialRepository;
-  GetStudentsAttendanceForASession(this.doctorMaterialRepository);
+  DoctorRepository doctorRepository;
+  GetStudentsAttendanceForASession(this.doctorRepository);
 
   @override
   Future<Either<Faliure, List<AttendStudents>>> call(
       GetStudentsAttendanceForASessionParams
           getStudentsAttendanceForASessionParams) async {
-    return await doctorMaterialRepository.getStudentsAttendanceAtSession(
+    return await doctorRepository.getStudentsAttendanceAtSession(
       sessionId: getStudentsAttendanceForASessionParams.sessionId,
     );
   }

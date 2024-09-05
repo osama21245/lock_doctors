@@ -1,16 +1,16 @@
 import 'package:fpdart/src/either.dart';
-import 'package:lock_doctors/features/doctor_materials/domain/repository/doctor_materials_repository.dart';
+import 'package:lock_doctors/features/doctor_materials/domain/repository/doctor_repository.dart';
 
 import '../../../../core/erorr/faliure.dart';
 import '../../../../core/usecase/usecase.dart';
 
 class GiveBonus implements UseCase<void, GiveBonusParams> {
-  DoctorMaterialRepository doctorMaterialRepository;
-  GiveBonus(this.doctorMaterialRepository);
+  DoctorRepository doctorRepository;
+  GiveBonus(this.doctorRepository);
 
   @override
   Future<Either<Faliure, void>> call(GiveBonusParams giveBonusParams) async {
-    return await doctorMaterialRepository.giveBonus(
+    return await doctorRepository.giveBonus(
       sessionId: giveBonusParams.sessionId,
       studentId: giveBonusParams.studentId,
     );
