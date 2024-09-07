@@ -2,9 +2,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lock_doctors/core/common/cubit/app_user/app_user_cubit.dart';
 import 'package:lock_doctors/core/routing/app_router.dart';
 import 'package:lock_doctors/core/theme/theme_data.dart';
-import 'package:lock_doctors/features/doctor_materials/presentation/bloc/doctor_bloc.dart';
-import 'package:lock_doctors/features/doctor_materials/presentation/screens/courses_screen.dart';
-import 'package:lock_doctors/features/doctor_materials/presentation/screens/levels_screen.dart';
+import 'package:lock_doctors/features/doctor/presentation/bloc/doctor_bloc.dart';
+import 'package:lock_doctors/features/doctor/presentation/screens/courses_screen.dart';
+import 'package:lock_doctors/features/doctor/presentation/screens/levels_screen.dart';
 import 'package:lock_doctors/features/home/presentation/bloc/home_bloc.dart';
 import 'package:lock_doctors/init_dependencies.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +12,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'core/common/entities/user.dart';
 import 'core/utils/get_user_data.dart';
 import 'features/auth/presentation/bloc/auth_bloc.dart';
+import 'features/doctor/presentation/screens/students_attend_a_session.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -66,13 +67,9 @@ class _MyAppState extends State<MyApp> {
         home: BlocBuilder<AppUserCubit, AppUserState>(
           builder: (context, state) {
             if (state is AppUserIsLogIn) {
-              return const CoursesScreen(
-                level: '2',
-              );
+              return const StudentsAttendASession();
             } else {
-              return const CoursesScreen(
-                level: '2',
-              );
+              return const StudentsAttendASession();
             }
           },
         ),

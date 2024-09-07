@@ -3,7 +3,7 @@ import 'package:lock_doctors/core/common/cubit/app_user/app_user_cubit.dart';
 import 'package:lock_doctors/core/routing/app_router.dart';
 import 'package:lock_doctors/core/theme/theme_data.dart';
 import 'package:lock_doctors/features/auth/presentation/pages/login_page.dart';
-import 'package:lock_doctors/features/doctor_materials/presentation/bloc/doctor_bloc.dart';
+import 'package:lock_doctors/features/doctor/presentation/bloc/doctor_bloc.dart';
 import 'package:lock_doctors/features/home/presentation/screens/home_screen.dart';
 import 'package:lock_doctors/init_dependencies.dart';
 import 'package:flutter/material.dart';

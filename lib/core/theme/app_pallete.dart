@@ -12,6 +12,8 @@ class AppPallete {
   static const Color darkGreyColor = Color(0xff403E3E);
   static const Color lightPurpleColor = Color(0xff6D57FC);
   static const Color orangePinkColor = Color(0xffF2C6C3);
+  static const Color darkGreyForStudnetScreen = Color(0xffDADADA);
+  static const Color darkGreyForCards = Color.fromARGB(115, 141, 141, 141);
 
   static const Color transparentPerbel = Color.fromARGB(143, 214, 175, 247);
   static const Color transparentRed = Color.fromARGB(95, 246, 129, 120);

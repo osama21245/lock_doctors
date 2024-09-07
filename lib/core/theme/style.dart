@@ -138,4 +138,25 @@ class TextStyles {
     fontWeight: FontWeightHelper.extraBold,
     fontSize: 11.89.h,
   );
+
+  static TextStyle font10WhiteRegular = TextStyle(
+    fontFamily: "Inter",
+    color: AppPallete.whiteColor,
+    fontWeight: FontWeightHelper.regular,
+    fontSize: 10.h,
+  );
+
+  static TextStyle font15WhiteMedium = TextStyle(
+    fontFamily: "Inter",
+    color: AppPallete.whiteColor,
+    fontWeight: FontWeightHelper.medium,
+    fontSize: 15.h,
+  );
+
+  static TextStyle font10GreyLight = TextStyle(
+    fontFamily: "Inter",
+    color: AppPallete.darkGreyForStudnetScreen,
+    fontWeight: FontWeightHelper.medium,
+    fontSize: 15.h,
+  );
 }
