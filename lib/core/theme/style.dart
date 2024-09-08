@@ -153,10 +153,17 @@ class TextStyles {
     fontSize: 15.h,
   );
 
+  static TextStyle font10BlcakMedium = TextStyle(
+    fontFamily: "Inter",
+    color: AppPallete.blackColor,
+    fontWeight: FontWeightHelper.medium,
+    fontSize: 10.h,
+  );
+
   static TextStyle font10GreyLight = TextStyle(
     fontFamily: "Inter",
     color: AppPallete.darkGreyForStudnetScreen,
-    fontWeight: FontWeightHelper.medium,
-    fontSize: 15.h,
+    fontWeight: FontWeightHelper.light,
+    fontSize: 10.h,
   );
 }

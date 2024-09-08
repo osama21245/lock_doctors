@@ -67,9 +67,13 @@ class _MyAppState extends State<MyApp> {
         home: BlocBuilder<AppUserCubit, AppUserState>(
           builder: (context, state) {
             if (state is AppUserIsLogIn) {
-              return const StudentsAttendASession();
+              return const CoursesScreen(
+                level: '1',
+              );
             } else {
-              return const StudentsAttendASession();
+              return const CoursesScreen(
+                level: '1',
+              );
             }
           },
         ),

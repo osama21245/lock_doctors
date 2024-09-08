@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lock_doctors/core/helpers/spacer.dart';
 import 'package:lock_doctors/core/theme/app_pallete.dart';
+import 'package:lock_doctors/core/theme/style.dart'; // Add this import
 
 import '../../../domain/entity/materials.dart';
 import '../../bloc/doctor_bloc.dart';
@@ -28,11 +30,15 @@ class _CustomCoursesState extends State<CustomCourses> {
           return const Center(child: CircularProgressIndicator());
         } else if (state is DoctorGetMaterialsSuccess) {
           return Expanded(
+              child: SizedBox(
+            width: 334.w,
             child: ListView.builder(
-              itemCount: state.materials.length,
-              itemBuilder: (context, i) => customCourseCard(state.materials[i]),
-            ),
-          );
+                itemCount: state.materials.length,
+                itemBuilder: (context, i) => Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 4),
+                      child: customCourseCard(state.materials[i]),
+                    )),
+          ));
         } else if (state is DoctorFailed) {
           return Container(
             height: 500,
@@ -51,33 +57,58 @@ class _CustomCoursesState extends State<CustomCourses> {
     return Container(
       width: 334.w,
       height: 100.h,
+      padding: EdgeInsets.symmetric(horizontal: 7.w, vertical: 4.h),
       decoration: BoxDecoration(
         color: AppPallete.darkGreyForCards,
         borderRadius: BorderRadius.circular(24.r),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            blurRadius: 4,
+            offset: const Offset(0, 2),
+          ),
+        ],
       ),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           ClipRRect(
-              borderRadius: BorderRadius.circular(24.r),
-              child: Image.asset(
-                "assets/image/app_rounded_logo.png",
-                width: 84.w,
-                height: 84.h,
-                fit: BoxFit.cover,
-              )),
-          Column(
-            children: [
-              Text(material.materialName),
-              const Text("Subtitle"),
-              Text("Total Sessions : ${material.totalsessions}"),
-            ],
+            borderRadius: BorderRadius.circular(20.r),
+            child: Image.asset(
+              "assets/image/app_rounded_logo.png",
+              width: 84.w,
+              height: 84.h,
+              fit: BoxFit.cover,
+            ),
           ),
+          SizedBox(width: 12.w),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  material.materialName,
+                  style: TextStyles.font15WhiteMedium, // Using TextStyles
+                ),
+                SizedBox(height: 4.h),
+                Text(
+                  "Get your sessions",
+                  style: TextStyles.font10GreyLight, // Using TextStyles
+                ),
+                Text(
+                  "Total Sessions : ${material.totalsessions}",
+                  style: TextStyles.font10BlcakMedium, // Using TextStyles
+                ),
+              ],
+            ),
+          ),
+          const Spacer(),
           Image.asset(
             "assets/image/Link.png",
             width: 24.w,
             height: 24.h,
-          )
+          ),
+          horizontalSpace(10)
         ],
       ),
     );
