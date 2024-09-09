@@ -141,8 +141,8 @@ class TextStyles {
 
   static TextStyle font10WhiteRegular = TextStyle(
     fontFamily: "Inter",
-    color: AppPallete.whiteColor,
-    fontWeight: FontWeightHelper.regular,
+    color: AppPallete.lightGreyColor,
+    fontWeight: FontWeightHelper.light,
     fontSize: 10.h,
   );
 

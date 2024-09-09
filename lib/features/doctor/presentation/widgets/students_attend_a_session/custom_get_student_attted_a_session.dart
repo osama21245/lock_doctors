@@ -5,6 +5,7 @@ import 'package:lock_doctors/features/doctor/domain/entity/attend_students.dart'
 import 'package:lock_doctors/features/doctor/presentation/bloc/doctor_bloc.dart';
 import 'package:lock_doctors/main_development.dart';
 
+import '../../../../../core/helpers/spacer.dart';
 import '../../../../../core/theme/app_pallete.dart';
 import '../../../../../core/theme/style.dart';
 
@@ -38,8 +39,11 @@ class _CustomGetStudentAtttedASessionState
               width: 334.w,
               child: ListView.builder(
                   itemCount: state.attendStudents.length,
-                  itemBuilder: (context, i) =>
-                      studentsAttendASessionCard(state.attendStudents[i])),
+                  itemBuilder: (context, i) => Padding(
+                        padding: EdgeInsets.symmetric(vertical: 6.0.h),
+                        child:
+                            studentsAttendASessionCard(state.attendStudents[i]),
+                      )),
             ),
           );
         }
@@ -59,8 +63,10 @@ class _CustomGetStudentAtttedASessionState
           color: AppPallete.darkGreyForCards),
       child: Row(
         children: [
+          horizontalSpace(5),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
                 attendStudents.studentname,
