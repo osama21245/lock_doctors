@@ -35,14 +35,13 @@ class _CustomCoursesState extends State<CustomCourses> {
             child: ListView.builder(
                 itemCount: state.materials.length,
                 itemBuilder: (context, i) => Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 4),
+                      padding: const EdgeInsets.symmetric(vertical: 9),
                       child: customCourseCard(state.materials[i]),
                     )),
           ));
         } else if (state is DoctorFailed) {
-          return Container(
+          return SizedBox(
             height: 500,
-            color: Colors.red,
             child: SizedBox(
               child: Text(state.message),
             ),
@@ -80,22 +79,27 @@ class _CustomCoursesState extends State<CustomCourses> {
               fit: BoxFit.cover,
             ),
           ),
-          SizedBox(width: 12.w),
-          Expanded(
+          horizontalSpace(12),
+          Container(
+            constraints: BoxConstraints(maxWidth: 180.w),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
+                verticalSpace(14),
                 Text(
+                  maxLines: 1,
                   material.materialName,
                   style: TextStyles.font15WhiteMedium, // Using TextStyles
                 ),
-                SizedBox(height: 4.h),
                 Text(
+                  maxLines: 1,
                   "Get your sessions",
                   style: TextStyles.font10GreyLight, // Using TextStyles
                 ),
+                verticalSpace(15),
                 Text(
+                  maxLines: 1,
                   "Total Sessions : ${material.totalsessions}",
                   style: TextStyles.font10BlcakMedium, // Using TextStyles
                 ),

@@ -13,6 +13,7 @@ class CustomGetYourCoursesText extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        verticalSpace(4.h),
         Text(
           "Get Your",
           style: TextStyles.font27WhiteLight,

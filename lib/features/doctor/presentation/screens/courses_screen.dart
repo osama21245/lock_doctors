@@ -32,6 +32,7 @@ class CoursesScreen extends StatelessWidget {
                 text: "Courses",
               ),
               CustomGetYourCoursesText(level: level),
+              verticalSpace(23),
               const CustomCourses()
             ],
           )),

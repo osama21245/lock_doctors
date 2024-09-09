@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lock_doctors/core/common/widget/app_background_color.dart';
 import 'package:lock_doctors/core/theme/app_pallete.dart';
@@ -6,6 +7,9 @@ import 'package:lock_doctors/core/theme/style.dart';
 import 'package:lock_doctors/features/doctor/presentation/widgets/students_attend_a_session/custom_get_student_attted_a_session.dart';
 import '../../../../core/common/widget/custom_top_bar.dart';
 import '../../../../core/helpers/spacer.dart';
+import '../bloc/doctor_bloc.dart';
+import '../widgets/students_attend_a_session/custom_get_total_students.dart';
+import '../widgets/students_attend_a_session/custom_search_bar.dart';
 
 class StudentsAttendASession extends StatelessWidget {
   const StudentsAttendASession({super.key});
@@ -13,37 +17,26 @@ class StudentsAttendASession extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: AppBackgroundColor(
+        body: BlocListener<DoctorBloc, DoctorState>(
+      listener: (context, state) {
+        if (state is DoctorGetAttendanceForASessionSuccess) {}
+      },
+      child: AppBackgroundColor(
           screenContent: SafeArea(
               child: Column(
         children: [
+          verticalSpace(20),
           const CustomTopBar(
             text: "Students",
           ),
-          Container(
-            height: 36.h,
-            width: 320.w,
-            decoration: BoxDecoration(
-                border: Border.all(color: AppPallete.whiteColor),
-                borderRadius: BorderRadius.circular(40.r)),
-            child: Row(
-              children: [
-                horizontalSpace(10),
-                Image.asset(
-                  "assets/image/Search_Image.png",
-                  width: 18.75.w,
-                  height: 18.72.w,
-                ),
-                Text(
-                  "search For student",
-                  style: TextStyles.font10WhiteRegular,
-                ),
-              ],
-            ),
-          ),
-          const CustomGetStudentAtttedASession()
+          verticalSpace(10),
+          const CustomSearchBar(),
+          verticalSpace(21),
+          const CustomGetStudentAtttedASession(),
+          const CustomGetTotalStudents(),
+          verticalSpace(12),
         ],
       ))),
-    );
+    ));
   }
 }
