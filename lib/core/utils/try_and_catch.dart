@@ -4,7 +4,7 @@ import 'package:lock_doctors/core/erorr/faliure.dart';
 import '../erorr/exception.dart';
 
 // Define a utility function to handle exceptions and return an Either type
-Future<Either<Faliure, T>> executeTryAndCatchForDomainLayer<T>(
+Future<Either<Faliure, T>> executeTryAndCatchForRepository<T>(
     Future<T> Function() action) async {
   try {
     return right(await action());

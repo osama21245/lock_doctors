@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lock_doctors/core/theme/app_pallete.dart';
 import 'package:lock_doctors/core/theme/style.dart';
-import 'package:lock_doctors/core/const/helping_lists.dart';
 import '../../../../core/utils/get_data_from_static_lists.dart';
 import '../bloc/home_bloc.dart';
 import 'package:lock_doctors/features/home/domain/entity/todays_sessions.dart';

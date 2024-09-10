@@ -22,6 +22,7 @@ import 'package:lock_doctors/features/doctor/presentation/bloc/doctor_bloc.dart'
 import 'package:lock_doctors/features/home/data/datasource/home_remote_datasourse.dart';
 import 'package:lock_doctors/features/home/domain/usecases/get_semesters.dart';
 import 'package:lock_doctors/features/home/domain/usecases/get_todays_sessions.dart';
+import 'package:lock_doctors/features/student/data/datasource/student_remote_data_source.dart';
 
 import 'features/auth/domain/usecases/set_stud_face_model.dart';
 import 'dart:async';
@@ -31,6 +32,8 @@ import 'features/doctor/domain/repository/doctor_repository.dart';
 import 'features/home/data/repositories/home_repository_impl.dart';
 import 'features/home/domain/repository/home_repository.dart';
 import 'features/home/presentation/bloc/home_bloc.dart';
+import 'features/student/data/repositories/student_repository.dart';
+import 'features/student/presentation/bloc/student_bloc.dart';
 
 final serviceLocator = GetIt.instance;
 
@@ -38,6 +41,7 @@ Future<void> initDependencies() async {
   _initAuth();
   _initDoctorMaterials();
   _initHome();
+  _initStudent();
   customErorrScreen();
 
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
@@ -108,4 +112,15 @@ void _initHome() {
 
   serviceLocator.registerLazySingleton(() => HomeBloc(
       getSemesters: serviceLocator(), getTodaysSessions: serviceLocator()));
+}
+
+void _initStudent() {
+  serviceLocator.registerFactory<StudentRemoteDataSource>(
+      () => StudentRemoteDataSourceImpl(serviceLocator()));
+
+  serviceLocator.registerFactory<StudentRepository>(
+      () => StudentRepository(serviceLocator()));
+
+  serviceLocator.registerLazySingleton(
+      () => StudentBloc(studentRepository: serviceLocator()));
 }

@@ -1,6 +1,5 @@
 import 'package:fpdart/src/either.dart';
 import 'package:lock_doctors/features/doctor/domain/entity/attend_students.dart';
-import 'package:lock_doctors/features/doctor/domain/entity/sessions.dart';
 import 'package:lock_doctors/features/doctor/domain/repository/doctor_repository.dart';
 
 import '../../../../core/erorr/faliure.dart';

@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lock_doctors/core/common/widget/app_background_color.dart';
-import 'package:lock_doctors/core/theme/app_pallete.dart';
-import 'package:lock_doctors/core/theme/style.dart';
 import 'package:lock_doctors/features/doctor/presentation/widgets/students_attend_a_session/custom_get_student_attted_a_session.dart';
 import '../../../../core/common/widget/custom_top_bar.dart';
 import '../../../../core/helpers/spacer.dart';

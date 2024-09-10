@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lock_doctors/features/doctor/domain/entity/levels.dart';
-
-import '../../../../../core/const/helping_lists.dart';
 import '../../../../../core/theme/app_pallete.dart';
 import '../../../../../core/theme/style.dart';
 import '../../../../../core/utils/get_data_from_static_lists.dart';

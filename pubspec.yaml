@@ -94,7 +94,6 @@ flutter:
   assets:
     - assets/rive/
     - assets/image/
-    - assets/avatars/
     - assets/RiveAssets/
     - shorebird.yaml
 

@@ -5,13 +5,13 @@ class Apilinks {
   static const String linkSetFaceIdModel =
       'https://cac9-156-217-169-34.ngrok-free.app/submit';
 
-  //Home links
+  //Home feature links
   static const String linkGetSemesters = "${baseUrl}get_semesters.php";
 
   static const String linkGetTodaysSessions =
       "${baseUrl}get_doctor_todays_sessions.php";
 
-  //focues on doctor
+  //doctor feature links
 
   static const String linkGetDoctorMaterials =
       "${baseUrl}get_doctor_materials.php";
@@ -21,18 +21,23 @@ class Apilinks {
   static const String linkGetSessionsForAMaterial =
       "${baseUrl}get_sessions.php";
 
-  //focues on student
-
   static const String linkGetStudentsAttendanceAtSession =
       "${baseUrl}get_attending_users.php";
 
-  //doctor controls
   static const String linkGetStudentsTotalAttendTimesAtOneMaterial =
       "${baseUrl}count_student.php";
+
+  //student feature links
 
   static const String linkGivePenality = "${baseUrl}remove_student.php";
 
   static const String linkGiveBonus = "${baseUrl}add_student.php";
+
+  static const String linkgetStudentTotalAttendTimeForOneMaterial =
+      "${baseUrl}get_sudent_total_attendance_for_one_material.php";
+
+  static const String linkgetStudentTimelineForOneMaterial =
+      "${baseUrl}get_student_timeline_for_one_material.php";
 }
 
 class ApiErrors {

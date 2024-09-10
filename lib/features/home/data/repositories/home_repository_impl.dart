@@ -16,7 +16,7 @@ class HomeRepositoryImpl implements HomeRepository {
 
   @override
   Future<Either<Faliure, List<SemestersModel>>> getSemesters() async {
-    return await executeTryAndCatchForDomainLayer(() async {
+    return await executeTryAndCatchForRepository(() async {
       final response = await homeRemoteDataSource.getSemesters();
 
       if (checkIsRequestSuccess(response)) {
@@ -40,7 +40,7 @@ class HomeRepositoryImpl implements HomeRepository {
   @override
   Future<Either<Faliure, List<TodaysSessionsModel>>> getTodaysSessions(
       {required String day, required String doctorId}) async {
-    return await executeTryAndCatchForDomainLayer(() async {
+    return await executeTryAndCatchForRepository(() async {
       final response = await homeRemoteDataSource.getDoctorTodaysSessions(
           doctorId: doctorId, day: day);
 

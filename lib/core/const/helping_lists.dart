@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:lock_doctors/core/theme/app_pallete.dart';
 
 List<Color> todaySessionsCardColors = [
   const Color(0xff16314D),

@@ -19,7 +19,7 @@ class DoctorRepositoryImpl implements DoctorRepository {
   @override
   Future<Either<Faliure, List<MaterialsModel>>> getDoctorMaterials(
       {required String doctorId}) async {
-    return await executeTryAndCatchForDomainLayer(() async {
+    return await executeTryAndCatchForRepository(() async {
       final response =
           await doctorRemoteDataSource.getDoctorMaterials(doctorId: doctorId);
 
@@ -44,7 +44,7 @@ class DoctorRepositoryImpl implements DoctorRepository {
   @override
   Future<Either<Faliure, List<LevelsModel>>> getDoctorLevels(
       {required String doctorId, required String semesterId}) async {
-    return await executeTryAndCatchForDomainLayer(() async {
+    return await executeTryAndCatchForRepository(() async {
       final response = await doctorRemoteDataSource.getDoctorLevels(
           doctorId: doctorId, semesterId: semesterId);
 
@@ -67,7 +67,7 @@ class DoctorRepositoryImpl implements DoctorRepository {
   @override
   Future<Either<Faliure, List<SessionsModel>>> getSessionForAMaterial(
       {required String materialId}) async {
-    return await executeTryAndCatchForDomainLayer(() async {
+    return await executeTryAndCatchForRepository(() async {
       final response = await doctorRemoteDataSource.getSessionForAMaterial(
         materialId: materialId,
       );
@@ -91,7 +91,7 @@ class DoctorRepositoryImpl implements DoctorRepository {
   @override
   Future<Either<Faliure, List<AttendStudentsModel>>>
       getStudentsAttendanceAtSession({required String sessionId}) async {
-    return await executeTryAndCatchForDomainLayer(() async {
+    return await executeTryAndCatchForRepository(() async {
       final response = await doctorRemoteDataSource
           .getStudentsAttendanceAtSession(sessionId: sessionId);
       if (checkIsRequestSuccess(response)) {
@@ -118,7 +118,7 @@ class DoctorRepositoryImpl implements DoctorRepository {
   Future<Either<Faliure, TotalStudentAttendCountModel>>
       getStudentsTotalAttendTimesAtOneMaterial(
           {required String materialId, required String studentId}) async {
-    return await executeTryAndCatchForDomainLayer(() async {
+    return await executeTryAndCatchForRepository(() async {
       final response =
           await doctorRemoteDataSource.getStudentsTotalAttendTimesAtOneMaterial(
               materialId: materialId, studentId: studentId);

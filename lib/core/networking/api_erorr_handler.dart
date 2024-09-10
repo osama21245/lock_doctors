@@ -2,7 +2,6 @@ import 'package:dio/dio.dart';
 
 import '../const/linksApi.dart';
 import '../erorr/exception.dart';
-import 'api_erorr_model.dart';
 
 // TODO: .
 enum DataSource {

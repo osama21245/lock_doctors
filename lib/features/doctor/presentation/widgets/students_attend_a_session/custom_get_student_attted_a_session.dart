@@ -3,8 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lock_doctors/features/doctor/domain/entity/attend_students.dart';
 import 'package:lock_doctors/features/doctor/presentation/bloc/doctor_bloc.dart';
-import 'package:lock_doctors/main_development.dart';
-
 import '../../../../../core/helpers/spacer.dart';
 import '../../../../../core/theme/app_pallete.dart';
 import '../../../../../core/theme/style.dart';
