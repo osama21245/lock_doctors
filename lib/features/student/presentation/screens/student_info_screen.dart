@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lock_doctors/core/common/widget/app_background_color.dart';
-import 'package:lock_doctors/features/student/presentation/widget/custom_curved_line_image_with_text.dart';
+import 'package:lock_doctors/features/student/presentation/widget/student_info_screen/custom_curved_line_image_with_text.dart';
 
 import '../../../../core/common/widget/custom_top_bar.dart';
 import '../../../../core/helpers/spacer.dart';
