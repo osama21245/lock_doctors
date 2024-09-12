@@ -8,6 +8,8 @@ import 'package:path/path.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:lock_doctors/core/const/shared_pref_constans.dart';
 
+import '../../features/auth/data/model/user_model.dart';
+
 class SharedPrefHelper {
   // private constructor as I don't want to allow creating an instance of this class itself.
   SharedPrefHelper._();
@@ -190,9 +192,32 @@ class SharedPrefHelper {
 
   /// Removes all keys and values in the FlutterSecureStorage
   static clearAllSecuredData() async {
-    debugPrint('FlutterSecureStorage : all data has been cleared');
     const flutterSecureStorage = FlutterSecureStorage();
+
+    debugPrint('FlutterSecureStorage : all data has been cleared');
     await flutterSecureStorage.deleteAll();
+  }
+
+  static Future<void> storeUserData(UserModel user) async {
+    const flutterSecureStorage = FlutterSecureStorage();
+    await flutterSecureStorage.write(key: 'userData', value: user.toJson());
+  }
+
+  static Future<UserModel?> getUserData() async {
+    const flutterSecureStorage = FlutterSecureStorage();
+
+    String? jsonString = await flutterSecureStorage.read(key: 'userData');
+
+    if (jsonString != null) {
+      return UserModel.fromJson(jsonString);
+    } else {
+      return null;
+    }
+  }
+
+  static Future<void> deleteUserData() async {
+    const flutterSecureStorage = FlutterSecureStorage();
+    await flutterSecureStorage.delete(key: 'userData');
   }
 
   // secure photos

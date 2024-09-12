@@ -8,6 +8,7 @@ import 'package:lock_doctors/features/home/presentation/widgets/custom_doctor_pr
 import 'package:lock_doctors/features/home/presentation/widgets/custom_home_categories.dart';
 import 'package:lock_doctors/features/home/presentation/widgets/custom_slider.dart';
 
+import '../../../../core/common/cubit/app_user/app_user_cubit.dart';
 import '../../../../core/helpers/spacer.dart';
 import '../../../../core/theme/style.dart';
 import '../bloc/home_bloc.dart';
@@ -23,6 +24,9 @@ class HomeScreen extends StatelessWidget {
           .read<HomeBloc>()
           .add(HomeGetTodaysSessions(doctorId: "4", day: "Fri"));
     }
+
+    final user =
+        (BlocProvider.of<AppUserCubit>(context).state as AppUserIsLogIn).user;
 
     return Scaffold(
       body: BlocListener<HomeBloc, HomeState>(
@@ -63,7 +67,8 @@ class HomeScreen extends StatelessWidget {
                           padding: EdgeInsets.symmetric(
                               vertical: 8.0.h, horizontal: 25.0.w),
                           child: Text(
-                            "Today Sessions",
+                            //"Today Sessions",
+                            user.email,
                             textAlign: TextAlign.left,
                             style: TextStyles.font15GreyMedium,
                           ),

@@ -1,38 +1,38 @@
 import 'dart:io';
-
 import 'package:bloc/bloc.dart';
-import 'package:lock_doctors/features/auth/domain/usecases/current_user.dart';
+import 'package:lock_doctors/core/common/entities/user.dart';
+import 'package:lock_doctors/core/usecase/usecase.dart';
+import 'package:lock_doctors/features/auth/data/model/user_model.dart';
+import 'package:lock_doctors/features/auth/domain/usecases/get_current_user_from_local_storage.dart';
+import 'package:lock_doctors/features/auth/domain/usecases/set_current_user_to_local_storage.dart';
 import 'package:lock_doctors/features/auth/domain/usecases/user_sign_in.dart';
-import 'package:lock_doctors/features/auth/domain/usecases/user_sign_up.dart';
 import 'package:flutter/material.dart';
-
 import '../../../../core/common/cubit/app_user/app_user_cubit.dart';
-import '../../data/model/user_model.dart';
 import '../../domain/usecases/set_stud_face_model.dart';
-
 part 'auth_event.dart';
 part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
-  final UserSignUp _userSignUp;
   final UserSignIn _userSignIn;
   final GetCurrentUser _getCurrentUser;
+  final SetCurrentUserToLocalStorage _setCurrentUserToLocalStorage;
   final AppUserCubit _appUserCubit;
   final SetStudFaceModel _setStudFaceModel;
   AuthBloc(
-      {required UserSignUp userSignUp,
-      required SetStudFaceModel setStudFaceModel,
-      required UserSignIn userSignIn,
+      {required UserSignIn userSignIn,
       required GetCurrentUser getCurrentUser,
+      required SetCurrentUserToLocalStorage setCurrentUserToLocalStorage,
+      required SetStudFaceModel setStudFaceModel,
       required AppUserCubit appUserCubit})
-      : _userSignUp = userSignUp,
-        _setStudFaceModel = setStudFaceModel,
-        _userSignIn = userSignIn,
+      : _userSignIn = userSignIn,
         _getCurrentUser = getCurrentUser,
+        _setCurrentUserToLocalStorage = setCurrentUserToLocalStorage,
+        _setStudFaceModel = setStudFaceModel,
         _appUserCubit = appUserCubit,
         super(AuthInitial()) {
-    on<AuthSignUp>(_authSignUp);
     on<AuthSignIn>(_authSignIn);
+    on<AuthGetUserDataFromLocalStorage>(_getUserDataFromLocalStorage);
+    on<AuthSetUserDataToLocalStorage>(_setUserDataToLocalStorageFun);
     on<AuthSetStudFaceModel>(_setStudFaceModelFun);
   }
   //=======================text controllers ==================================
@@ -41,19 +41,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final formKey = GlobalKey<FormState>();
 
 //=======================functions ========================================
-
-  void _authSignUp(AuthSignUp event, Emitter<AuthState> emit) async {
-    emit(AuthLoading());
-    final res = await _userSignUp(UserSignUpParams(
-        emailController.text, emailController.text, event.name));
-
-    res.fold((l) {
-      emit(AuthFail(l.erorr));
-      print(l.erorr);
-    }, (r) {
-      emit(AuthSuccess(r.response));
-    });
-  }
 
   void _authSignIn(AuthSignIn event, Emitter<AuthState> emit) async {
     emit(AuthLoading());
@@ -66,14 +53,33 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(AuthFail(l.erorr));
       print(l.erorr);
     }, (r) {
-      _appUserCubit.updateUser(UserModel(
-          id: "",
-          name: event.email,
-          email: event.password,
-          level: "",
-          universityId: "",
-          banDate: ""));
-      emit(AuthSuccess(r.response));
+      emit(AuthSuccess(r));
+    });
+  }
+
+  void _getUserDataFromLocalStorage(
+      AuthGetUserDataFromLocalStorage event, Emitter<AuthState> emit) async {
+    emit(AuthLoading());
+    final res = await _getCurrentUser(NoParams());
+    res.fold((l) {
+      emit(AuthFail(l.erorr));
+      print(l.erorr);
+    }, (r) {
+      _appUserCubit.updateUser(r);
+      emit(AuthGetUserDataFromLocalStorageSuccess(userModel: r));
+    });
+  }
+
+  void _setUserDataToLocalStorageFun(
+      AuthSetUserDataToLocalStorage event, Emitter<AuthState> emit) async {
+    emit(AuthLoading());
+    final res = await _setCurrentUserToLocalStorage(
+        SetCurrentUserToLocalStorageParams(user: event.user));
+    res.fold((l) {
+      emit(AuthFail(l.erorr));
+      print(l.erorr);
+    }, (r) {
+      emit(AuthSetUserDataToLocalStorageSuccess());
     });
   }
 
