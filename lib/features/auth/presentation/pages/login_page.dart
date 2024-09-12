@@ -1,9 +1,9 @@
 import 'package:lock_doctors/features/auth/presentation/widgets/auth_gradient_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:lock_doctors/features/auth/presentation/widgets/email_and_password.dart';
 import 'package:lock_doctors/features/auth/presentation/widgets/login_state_controller.dart';
 import '../bloc/auth_bloc.dart';
+import '../widgets/email_and_password.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -36,9 +36,9 @@ class LoginPage extends StatelessWidget {
                       .formKey
                       .currentState!
                       .validate()) {
-                    context.read<AuthBloc>().add(
-                          AuthSignUp(""),
-                        );
+                    context.read<AuthBloc>().add(AuthSignIn(
+                        context.read<AuthBloc>().emailController.text,
+                        context.read<AuthBloc>().passwordController.text));
                   }
                 },
               ),

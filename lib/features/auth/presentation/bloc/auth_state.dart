@@ -10,13 +10,23 @@ final class AuthLoading extends AuthState {}
 final class AuthSetModelSuccess extends AuthState {}
 
 final class AuthSuccess extends AuthState {
-  final String response;
+  final UserModel userModel;
 
-  AuthSuccess(this.response);
+  AuthSuccess(this.userModel);
 }
 
 final class AuthFail extends AuthState {
   final String message;
 
   AuthFail(this.message);
+}
+
+final class AuthGetUserDataFromLocalStorageSuccess extends AuthState {
+  final User userModel;
+
+  AuthGetUserDataFromLocalStorageSuccess({required this.userModel});
+}
+
+final class AuthSetUserDataToLocalStorageSuccess extends AuthState {
+  AuthSetUserDataToLocalStorageSuccess();
 }

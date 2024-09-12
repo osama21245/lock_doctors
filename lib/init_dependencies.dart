@@ -7,9 +7,9 @@ import 'package:lock_doctors/core/utils/crud.dart';
 import 'package:lock_doctors/features/auth/data/datasources/auth_remote_data_source.dart';
 import 'package:lock_doctors/features/auth/data/repositories/auth_repository_ipl.dart';
 import 'package:lock_doctors/features/auth/domain/repository/auth_repository.dart';
-import 'package:lock_doctors/features/auth/domain/usecases/current_user.dart';
+import 'package:lock_doctors/features/auth/domain/usecases/get_current_user_from_local_storage.dart';
+import 'package:lock_doctors/features/auth/domain/usecases/set_current_user_to_local_storage.dart';
 import 'package:lock_doctors/features/auth/domain/usecases/user_sign_in.dart';
-import 'package:lock_doctors/features/auth/domain/usecases/user_sign_up.dart';
 import 'package:lock_doctors/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:lock_doctors/features/doctor/data/repositories/doctor_repository_ipl.dart';
@@ -23,6 +23,7 @@ import 'package:lock_doctors/features/home/data/datasource/home_remote_datasours
 import 'package:lock_doctors/features/home/domain/usecases/get_semesters.dart';
 import 'package:lock_doctors/features/home/domain/usecases/get_todays_sessions.dart';
 
+import 'features/auth/data/datasources/auth_local_data_source.dart';
 import 'features/auth/domain/usecases/set_stud_face_model.dart';
 import 'dart:async';
 
@@ -55,20 +56,23 @@ void _initAuth() {
   serviceLocator.registerFactory<AuthRemoteDataSource>(
       () => AuthRemoteDataSourceImpl(serviceLocator()));
 
-  serviceLocator.registerFactory<AuthRepository>(
-      () => AuthRepositoryImpl(serviceLocator()));
+  serviceLocator.registerFactory<AuthLocalDataSource>(
+      () => AuthLocalDataSourceImpl(serviceLocator()));
 
-  serviceLocator.registerFactory(() => UserSignUp(serviceLocator()));
+  serviceLocator.registerFactory<AuthRepository>(
+      () => AuthRepositoryImpl(serviceLocator(), serviceLocator()));
   serviceLocator.registerFactory(() => UserSignIn(serviceLocator()));
   serviceLocator.registerFactory(() => GetCurrentUser(serviceLocator()));
   serviceLocator.registerFactory(() => SetStudFaceModel(serviceLocator()));
+  serviceLocator
+      .registerFactory(() => SetCurrentUserToLocalStorage(serviceLocator()));
 
   serviceLocator.registerLazySingleton(() => AuthBloc(
-      userSignUp: serviceLocator(),
       userSignIn: serviceLocator(),
       getCurrentUser: serviceLocator(),
       setStudFaceModel: serviceLocator(),
-      appUserCubit: serviceLocator()));
+      appUserCubit: serviceLocator(),
+      setCurrentUserToLocalStorage: serviceLocator()));
 }
 
 void _initDoctorMaterials() {

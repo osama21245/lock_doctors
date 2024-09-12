@@ -27,3 +27,12 @@ class AuthSetStudFaceModel extends AuthEvent {
 
   AuthSetStudFaceModel({required this.image, required this.studId});
 }
+
+class AuthGetUserDataFromLocalStorage extends AuthEvent {
+  AuthGetUserDataFromLocalStorage();
+}
+
+class AuthSetUserDataToLocalStorage extends AuthEvent {
+  final UserModel user;
+  AuthSetUserDataToLocalStorage({required this.user});
+}
