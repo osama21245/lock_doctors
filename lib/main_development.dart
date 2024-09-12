@@ -12,6 +12,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'core/common/entities/user.dart';
 import 'features/auth/presentation/bloc/auth_bloc.dart';
 import 'features/doctor/presentation/screens/students_attend_a_session.dart';
+import 'features/student/presentation/screens/search_for_student_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -64,9 +65,9 @@ class _MyAppState extends State<MyApp> {
         home: BlocBuilder<AppUserCubit, AppUserState>(
           builder: (context, state) {
             if (state is AppUserIsLogIn) {
-              return const HomeScreen();
+              return const SearchForStudentScreen();
             } else {
-              return const LoginPage();
+              return const SearchForStudentScreen();
             }
           },
         ),

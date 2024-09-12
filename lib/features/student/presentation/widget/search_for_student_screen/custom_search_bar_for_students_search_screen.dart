@@ -5,8 +5,8 @@ import '../../../../../core/helpers/spacer.dart';
 import '../../../../../core/theme/app_pallete.dart';
 import '../../../../../core/theme/style.dart';
 
-class CustomSearchBar extends StatelessWidget {
-  const CustomSearchBar({super.key});
+class CustomSearchBarForStudentsSearchScreen extends StatelessWidget {
+  const CustomSearchBarForStudentsSearchScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,14 +25,22 @@ class CustomSearchBar extends StatelessWidget {
             height: 18.72.w,
           ),
           horizontalSpace(12),
-          TextFormField(
-            decoration: InputDecoration(
-              border: InputBorder.none,
-              hintText: "Search for student",
-              hintStyle: TextStyles.font10WhiteRegular,
+          Expanded(
+            child: TextFormField(
+              decoration: InputDecoration(
+                focusedBorder: InputBorder.none,
+                enabledBorder: InputBorder.none,
+                disabledBorder: InputBorder.none,
+                border: InputBorder.none,
+                hintText: "Search for student",
+                hintStyle: TextStyles.font10WhiteRegular,
+                isDense: true,
+                contentPadding: EdgeInsets.zero,
+              ),
+              style: TextStyles.font10WhiteRegular,
             ),
-            style: TextStyles.font10WhiteRegular,
           ),
+          horizontalSpace(12),
         ],
       ),
     );
