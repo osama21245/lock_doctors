@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../core/helpers/spacer.dart';
-import '../../../../core/theme/app_pallete.dart';
-import '../../../../core/theme/font_weight_helper.dart';
+import '../../../../../core/helpers/spacer.dart';
+import '../../../../../core/theme/app_pallete.dart';
+import '../../../../../core/theme/font_weight_helper.dart';
 
 class CustomSeeUserTimelineButton extends StatelessWidget {
   const CustomSeeUserTimelineButton({super.key});

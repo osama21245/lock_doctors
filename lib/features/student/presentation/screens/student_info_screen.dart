@@ -7,10 +7,10 @@ import '../../../../core/common/widget/custom_top_bar.dart';
 import '../../../../core/helpers/spacer.dart';
 import '../../../../core/theme/app_pallete.dart';
 import '../bloc/student_bloc.dart';
-import '../widget/custom_bounes_and_penality_button.dart';
-import '../widget/custom_details_card.dart';
-import '../widget/custom_info_card.dart';
-import '../widget/custom_see_user_timeline_button.dart';
+import '../widget/student_info_screen/custom_bounes_and_penality_button.dart';
+import '../widget/student_info_screen/custom_details_card.dart';
+import '../widget/student_info_screen/custom_info_card.dart';
+import '../widget/student_info_screen/custom_see_user_timeline_button.dart';
 
 class StudentInfoScreen extends StatelessWidget {
   const StudentInfoScreen({super.key});
@@ -32,6 +32,9 @@ class StudentInfoScreen extends StatelessWidget {
             getStudentTotalAttendTimeForOneMaterial();
           } else if (state is StudentGivePenalitySuccess) {
             showSnackBar(context, "Penality given successfully");
+            getStudentTotalAttendTimeForOneMaterial();
+          } else if (state is StudentFailed) {
+            showSnackBar(context, state.message);
             getStudentTotalAttendTimeForOneMaterial();
           }
         },

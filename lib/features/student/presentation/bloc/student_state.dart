@@ -33,3 +33,9 @@ class StudentGetStudentTimelineForOneMaterialSuccess extends StudentState {
   StudentGetStudentTimelineForOneMaterialSuccess(
       {required this.timeLineAttendance});
 }
+
+class StudentSearchForStudentSuccess extends StudentState {
+  final List<UserModel> users;
+
+  StudentSearchForStudentSuccess({required this.users});
+}

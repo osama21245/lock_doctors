@@ -1,7 +1,7 @@
 import 'package:lock_doctors/core/erorr/faliure.dart';
 import 'package:lock_doctors/core/usecase/usecase.dart';
 import 'package:fpdart/src/either.dart';
-import '../../data/model/user_model.dart';
+import '../../../../core/common/entities/user_model.dart';
 import '../repository/auth_repository.dart';
 
 class GetCurrentUser implements UseCase<UserModel, NoParams> {

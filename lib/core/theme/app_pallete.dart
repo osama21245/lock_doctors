@@ -16,12 +16,20 @@ class AppPallete {
   static const Color darkGreyForCards = Color.fromARGB(115, 141, 141, 141);
   static const Color pinkyRed = Color(0xffED6868);
   static const Color lightGreen = Color(0xff25EBA4);
+  static const Color lightGreenAndGrey70Transparent =
+      Color.fromARGB(178, 143, 167, 160);
+
+  static const Color white80TransperentColor =
+      Color.fromARGB(200, 255, 255, 255);
+  static const Color white50TransperentColor =
+      Color.fromARGB(127, 255, 255, 255);
 
   static const Color transparentPerbel = Color.fromARGB(143, 214, 175, 247);
   static const Color transparentRed = Color.fromARGB(95, 246, 129, 120);
   static const Color borderColor = Color.fromRGBO(52, 51, 67, 1);
   static const Color whiteColor = Colors.white;
   static const Color blackColor = Colors.black;
+  static const Color lightBlackColor = Color(0xff242424);
 
   static const Color errorColor = Colors.redAccent;
   static const Color transparentColor = Colors.transparent;

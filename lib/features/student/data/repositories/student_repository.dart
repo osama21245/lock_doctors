@@ -1,4 +1,5 @@
 import 'package:fpdart/fpdart.dart';
+import 'package:lock_doctors/core/common/entities/user_model.dart';
 import 'package:lock_doctors/core/utils/check_request_response.dart';
 
 import 'package:lock_doctors/core/erorr/faliure.dart';
@@ -14,32 +15,26 @@ class StudentRepository {
 
   Future<Either<Faliure, void>> giveBonus(
       {required String sessionId, required String studentId}) async {
-    try {
+    return await executeTryAndCatchForRepository(() async {
       final response = await studentRemoteDataSource.giveBonus(
           sessionId: sessionId, studentId: studentId);
       if (checkIsRequestSuccess(response)) {
-        return right(null);
       } else {
-        return left(Faliure("there is no sessions"));
+        throw "there is no sessions";
       }
-    } catch (e) {
-      return left(Faliure(e.toString()));
-    }
+    });
   }
 
   Future<Either<Faliure, void>> givePenality(
       {required String sessionId, required String studentId}) async {
-    try {
+    return await executeTryAndCatchForRepository(() async {
       final response = await studentRemoteDataSource.givePenality(
           sessionId: sessionId, studentId: studentId);
       if (checkIsRequestSuccess(response)) {
-        return right(null);
       } else {
-        return left(Faliure("there is no sessions"));
+        throw "there is no sessions";
       }
-    } catch (e) {
-      return left(Faliure(e.toString()));
-    }
+    });
   }
 
 //get Student Total AttendTime For One Material =====================================================================
@@ -56,7 +51,7 @@ class StudentRepository {
         return convertDataToTotalAttendanceForOneMaterialModel(
             totalAttendnaceInJsonForm);
       } else {
-        throw Exception("There are no Materials available.");
+        throw "There are no Materials available.";
       }
     });
   }
@@ -84,7 +79,7 @@ class StudentRepository {
         return convertDataToTimelineAttendanceModel(
             timelineAttendanceInJsonForm);
       } else {
-        throw Exception("There are no Materials available.");
+        throw "There are no Materials available.";
       }
     });
   }
@@ -95,5 +90,28 @@ class StudentRepository {
     timelineAttendance.addAll(timelineAttendanceInJsonForm
         .map((e) => TimelineAttendanceModel.fromMap(e)));
     return timelineAttendance;
+  }
+
+//get search result ===============================================================================================================
+
+  Future<Either<Faliure, List<UserModel>>> searchForStudent(
+      {required String searchInput, required String limit}) async {
+    return await executeTryAndCatchForRepository(() async {
+      final response = await studentRemoteDataSource.searchForStudent(
+          searchInput: searchInput, limit: limit);
+
+      if (checkIsRequestSuccess(response)) {
+        List userDataInJsonForm = response["data"];
+        return convertDataToUserModel(userDataInJsonForm);
+      } else {
+        throw "There are no Materials available.";
+      }
+    });
+  }
+
+  List<UserModel> convertDataToUserModel(List<dynamic> userDataInJsonForm) {
+    List<UserModel> users = [];
+    users.addAll(userDataInJsonForm.map((e) => UserModel.fromMap(e)));
+    return users;
   }
 }

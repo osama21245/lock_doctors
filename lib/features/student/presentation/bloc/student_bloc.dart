@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
+import 'package:lock_doctors/core/common/entities/user_model.dart';
 import 'package:lock_doctors/features/student/data/repositories/student_repository.dart';
 import 'package:meta/meta.dart';
 
@@ -23,7 +25,12 @@ class StudentBloc extends Bloc<StudentEvent, StudentState> {
 
     on<StudentGetStudentTimelineForOneMaterial>(
         _getStudentTimelineForOneMaterial);
+
+    on<StudentSearchForStudent>(_searchForStudent);
   }
+  ScrollController searchScrollController = ScrollController();
+  double currentScrollPosition = 0.0;
+  int limit = 5;
 
   Future<void> _giveBounesfun(
     StudentGiveBonus event,
@@ -35,8 +42,9 @@ class StudentBloc extends Bloc<StudentEvent, StudentState> {
       studentId: event.studentId,
     );
 
-    res.fold((l) => emit(StudentFailed(l.erorr.toString())),
-        (r) => emit(StudentGiveBounesSuccess()));
+    res.fold((l) {
+      emit(StudentFailed(l.erorr.toString()));
+    }, (r) => emit(StudentGiveBounesSuccess()));
   }
 
   Future<void> _givePenalityfun(
@@ -80,9 +88,27 @@ class StudentBloc extends Bloc<StudentEvent, StudentState> {
       studentId: event.studentId,
     );
 
-    res.fold(
-        (l) => emit(StudentFailed(l.erorr.toString())),
+    res.fold((l) {
+      emit(StudentFailed(l.erorr.toString()));
+    },
         (r) => emit(StudentGetStudentTimelineForOneMaterialSuccess(
             timeLineAttendance: r)));
+  }
+
+  Future<void> _searchForStudent(
+    StudentSearchForStudent event,
+    Emitter<StudentState> emit,
+  ) async {
+    emit(StudentLoading());
+    final res = await _studentRepository.searchForStudent(
+      searchInput: event.searchInput,
+      limit: event.limit,
+    );
+
+    res.fold((l) {
+      emit(StudentFailed(l.erorr.toString()));
+    }, (r) {
+      emit(StudentSearchForStudentSuccess(users: r));
+    });
   }
 }

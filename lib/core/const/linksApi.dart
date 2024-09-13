@@ -42,6 +42,8 @@ class Apilinks {
 
   static const String linkgetStudentTimelineForOneMaterial =
       "${baseUrl}get_student_timeline_for_one_material.php";
+
+  static const String linkSearchForStudent = "${baseUrl}search_for_student.php";
 }
 
 class ApiErrors {

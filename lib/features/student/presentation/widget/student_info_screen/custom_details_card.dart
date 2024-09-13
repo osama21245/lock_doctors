@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:lock_doctors/features/doctor/domain/usecases/get_student_total_attend_time_for_one_material.dart';
-import 'package:lock_doctors/features/student/presentation/widget/custom_curved_line_image_with_text.dart';
-
-import '../bloc/student_bloc.dart';
+import '../../bloc/student_bloc.dart';
+import 'custom_curved_line_image_with_text.dart';
 
 class CustomDetailsCard extends StatefulWidget {
   const CustomDetailsCard({super.key});

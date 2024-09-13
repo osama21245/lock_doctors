@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:lock_doctors/core/common/entities/user.dart';
 import 'package:lock_doctors/core/usecase/usecase.dart';
-import 'package:lock_doctors/features/auth/data/model/user_model.dart';
+import 'package:lock_doctors/core/common/entities/user_model.dart';
 import 'package:lock_doctors/features/auth/domain/usecases/get_current_user_from_local_storage.dart';
 import 'package:lock_doctors/features/auth/domain/usecases/set_current_user_to_local_storage.dart';
 import 'package:lock_doctors/features/auth/domain/usecases/user_sign_in.dart';

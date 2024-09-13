@@ -2,17 +2,19 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lock_doctors/core/common/cubit/app_user/app_user_cubit.dart';
 import 'package:lock_doctors/core/routing/app_router.dart';
 import 'package:lock_doctors/core/theme/theme_data.dart';
-import 'package:lock_doctors/features/auth/presentation/pages/login_page.dart';
+
 import 'package:lock_doctors/features/doctor/presentation/bloc/doctor_bloc.dart';
 import 'package:lock_doctors/features/home/presentation/bloc/home_bloc.dart';
-import 'package:lock_doctors/features/home/presentation/screens/home_screen.dart';
+
 import 'package:lock_doctors/init_dependencies.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'core/common/entities/user.dart';
+
 import 'features/auth/presentation/bloc/auth_bloc.dart';
-import 'features/doctor/presentation/screens/students_attend_a_session.dart';
+
+import 'features/student/presentation/bloc/student_bloc.dart';
 import 'features/student/presentation/screens/search_for_student_screen.dart';
+import 'features/student/presentation/screens/student_info_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

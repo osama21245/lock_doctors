@@ -1,65 +1,61 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
-import '../../../../core/common/entities/user.dart';
+import 'user.dart';
 
-class UserModel extends User {
+class UserModel {
+  final int id;
+  final String name;
+  final String email;
+  final int level;
+  final int state;
+  final int round;
   UserModel({
-    required super.id,
-    required super.name,
-    required super.email,
-    required super.level,
-    required super.banDate,
-    required super.state,
-    required super.round,
-    required super.userModel,
+    required this.id,
+    required this.name,
+    required this.email,
+    required this.level,
+    required this.state,
+    required this.round,
   });
 
   UserModel copyWith({
     int? id,
     String? name,
     String? email,
-    String? level,
-    String? banDate,
+    int? level,
     int? state,
     int? round,
-    String? userModel,
   }) {
     return UserModel(
       id: id ?? this.id,
       name: name ?? this.name,
       email: email ?? this.email,
       level: level ?? this.level,
-      banDate: banDate ?? this.banDate,
       state: state ?? this.state,
       round: round ?? this.round,
-      userModel: userModel ?? this.userModel,
     );
   }
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'id': id,
-      'name': name,
-      'email': email,
+      'user_id': id,
+      'user_name': name,
+      'user_email': email,
       'level': level,
-      'banDate': banDate,
-      'state': state,
-      'round': round,
-      'userModel': userModel,
+      'user_state': state,
+      'user_round': round,
     };
   }
 
   factory UserModel.fromMap(Map<String, dynamic> map) {
     return UserModel(
-      id: map['id'] as int,
-      name: map['name'] as String,
-      email: map['email'] as String,
-      level: map['level'] as String,
-      banDate: map['banDate'] as String,
-      state: map['state'] as int,
-      round: map['round'] as int,
-      userModel: map['userModel'] as String,
+      id: map['user_id'] as int,
+      name: map['user_name'] as String,
+      email: map['user_email'] as String,
+      level: map['user_level'] as int,
+      state: map['user_state'] as int,
+      round: map['user_round'] as int,
     );
   }
 
@@ -70,7 +66,7 @@ class UserModel extends User {
 
   @override
   String toString() {
-    return 'UserModel(id: $id, name: $name, email: $email, level: $level, banDate: $banDate, state: $state, round: $round, userModel: $userModel)';
+    return 'UserModel(id: $id, name: $name, email: $email, level: $level, state: $state, round: $round)';
   }
 
   @override
@@ -81,10 +77,8 @@ class UserModel extends User {
         other.name == name &&
         other.email == email &&
         other.level == level &&
-        other.banDate == banDate &&
         other.state == state &&
-        other.round == round &&
-        other.userModel == userModel;
+        other.round == round;
   }
 
   @override
@@ -93,9 +87,7 @@ class UserModel extends User {
         name.hashCode ^
         email.hashCode ^
         level.hashCode ^
-        banDate.hashCode ^
         state.hashCode ^
-        round.hashCode ^
-        userModel.hashCode;
+        round.hashCode;
   }
 }

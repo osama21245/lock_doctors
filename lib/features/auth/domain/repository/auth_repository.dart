@@ -4,7 +4,7 @@ import 'package:lock_doctors/core/erorr/faliure.dart';
 import 'package:fpdart/fpdart.dart';
 
 import '../../../../core/common/entities/response.dart';
-import '../../data/model/user_model.dart';
+import '../../../../core/common/entities/user_model.dart';
 
 abstract interface class AuthRepository {
   Future<Either<Faliure, UserModel>> loginInWithEmailAndPassword(

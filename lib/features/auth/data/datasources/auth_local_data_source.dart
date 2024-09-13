@@ -1,6 +1,6 @@
 import 'package:lock_doctors/core/helpers/shared_pref_helper.dart';
 import 'package:lock_doctors/core/utils/crud.dart';
-import 'package:lock_doctors/features/auth/data/model/user_model.dart';
+import 'package:lock_doctors/core/common/entities/user_model.dart';
 
 abstract interface class AuthLocalDataSource {
   Future<UserModel?> setUserData({required UserModel user});

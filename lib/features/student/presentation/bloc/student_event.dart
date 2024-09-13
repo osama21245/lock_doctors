@@ -28,3 +28,9 @@ class StudentGetStudentTimelineForOneMaterial extends StudentEvent {
   StudentGetStudentTimelineForOneMaterial(
       {required this.materialId, required this.studentId});
 }
+
+class StudentSearchForStudent extends StudentEvent {
+  final String searchInput;
+  final String limit;
+  StudentSearchForStudent({required this.searchInput, required this.limit});
+}

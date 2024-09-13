@@ -8,7 +8,7 @@ import 'package:path/path.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:lock_doctors/core/const/shared_pref_constans.dart';
 
-import '../../features/auth/data/model/user_model.dart';
+import '../common/entities/user_model.dart';
 
 class SharedPrefHelper {
   // private constructor as I don't want to allow creating an instance of this class itself.

@@ -1,9 +1,13 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lock_doctors/core/common/widget/app_background_color.dart';
+import 'package:lock_doctors/core/utils/show_snack_bar.dart';
+import 'package:lock_doctors/features/student/presentation/widget/search_for_student_screen/custom_search_result.dart';
 
 import '../../../../core/common/widget/custom_top_bar.dart';
 import '../../../../core/helpers/spacer.dart';
+import '../bloc/student_bloc.dart';
 import '../widget/search_for_student_screen/custom_search_bar_for_students_search_screen.dart';
 
 class SearchForStudentScreen extends StatelessWidget {
@@ -12,17 +16,25 @@ class SearchForStudentScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: AppBackgroundColor(
-          screenContent: SafeArea(
-              child: Column(
-        children: [
-          verticalSpace(20),
-          const CustomTopBar(
-            text: "Student Info",
-          ),
-          const CustomSearchBarForStudentsSearchScreen()
-        ],
-      ))),
+      body: BlocListener<StudentBloc, StudentState>(
+        listener: (context, state) {
+          if (state is StudentFailed) {
+            showSnackBar(context, state.message);
+          }
+        },
+        child: AppBackgroundColor(
+            screenContent: SafeArea(
+                child: Column(
+          children: [
+            verticalSpace(20),
+            const CustomTopBar(
+              text: "Student Info",
+            ),
+            const CustomSearchBarForStudentsSearchScreen(),
+            const CustomSearchResult()
+          ],
+        ))),
+      ),
     );
   }
 }

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:lock_doctors/features/student/presentation/widget/custom_curved_line_image_with_text.dart';
 
-import '../../../../core/helpers/spacer.dart';
-import '../../../../core/theme/font_weight_helper.dart';
+import '../../../../../core/helpers/spacer.dart';
+import '../../../../../core/theme/font_weight_helper.dart';
+import 'custom_curved_line_image_with_text.dart';
 
 class CustomInfoCard extends StatelessWidget {
   const CustomInfoCard({super.key});

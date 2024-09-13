@@ -22,7 +22,7 @@ final class AuthFail extends AuthState {
 }
 
 final class AuthGetUserDataFromLocalStorageSuccess extends AuthState {
-  final User userModel;
+  final UserModel userModel;
 
   AuthGetUserDataFromLocalStorageSuccess({required this.userModel});
 }

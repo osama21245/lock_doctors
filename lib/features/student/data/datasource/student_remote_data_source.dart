@@ -20,6 +20,9 @@ abstract interface class StudentRemoteDataSource {
 
   Future<Map> getStudentTimelineForOneMaterial(
       {required String materialId, required String studentId});
+
+  Future<Map> searchForStudent(
+      {required String limit, required String searchInput});
 }
 
 class StudentRemoteDataSourceImpl implements StudentRemoteDataSource {
@@ -68,6 +71,17 @@ class StudentRemoteDataSourceImpl implements StudentRemoteDataSource {
           .postData(Apilinks.linkgetStudentTimelineForOneMaterial, {
         "student_id": studentId,
         "material_id": materialId,
+      });
+    });
+  }
+
+  @override
+  Future<Map> searchForStudent(
+      {required String limit, required String searchInput}) {
+    return executeTryAndCatchForDataLayer(() async {
+      return await crud.postData(Apilinks.linkSearchForStudent, {
+        "searchInput": searchInput,
+        "limit": limit,
       });
     });
   }

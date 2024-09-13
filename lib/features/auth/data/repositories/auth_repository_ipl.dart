@@ -3,7 +3,7 @@ import 'package:fpdart/fpdart.dart';
 import 'package:lock_doctors/core/erorr/exception.dart';
 import 'package:lock_doctors/core/erorr/faliure.dart';
 import 'package:lock_doctors/features/auth/data/datasources/auth_remote_data_source.dart';
-import 'package:lock_doctors/features/auth/data/model/user_model.dart';
+import 'package:lock_doctors/core/common/entities/user_model.dart';
 import 'package:lock_doctors/features/auth/domain/repository/auth_repository.dart';
 import '../../../../core/common/entities/response.dart';
 import '../../../../core/utils/check_request_response.dart';
@@ -42,11 +42,9 @@ class AuthRepositoryImpl implements AuthRepository {
       id: userInJsonForm["user_id"],
       name: userInJsonForm["user_name"] ?? '',
       email: userInJsonForm["user_email"] ?? '',
-      level: userInJsonForm["user_level"].toString(),
-      banDate: userInJsonForm["user_ban_date"] ?? '',
+      level: userInJsonForm["user_level"],
       state: userInJsonForm["user_state"] ?? 0,
       round: userInJsonForm["user_round"] ?? 0,
-      userModel: userInJsonForm["user_model_id"] ?? '',
     );
   }
 
@@ -65,7 +63,7 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<Either<Faliure, void>> setCurrentUserData(
       {required UserModel userModel}) async {
-    return await executeTryAndCatchForDomainLayer(() async {
+    return await executeTryAndCatchForRepository(() async {
       final userData = await authLocalDataSource.setUserData(user: userModel);
       if (userData != null) {
       } else {

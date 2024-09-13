@@ -1,7 +1,7 @@
 import 'package:lock_doctors/core/erorr/faliure.dart';
 import 'package:lock_doctors/core/usecase/usecase.dart';
 import 'package:fpdart/src/either.dart';
-import 'package:lock_doctors/features/auth/data/model/user_model.dart';
+import 'package:lock_doctors/core/common/entities/user_model.dart';
 import '../repository/auth_repository.dart';
 
 class SetCurrentUserToLocalStorage
