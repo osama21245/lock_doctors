@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lock_doctors/core/helpers/spacer.dart';
@@ -41,7 +42,8 @@ class CustomHomeCategories extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           verticalSpace(5),
-                          Image.asset(homeCategories[i].image, width: 31.w),
+                          Image.asset(homeCategories[i].image,
+                              width: 31.w, height: 31.h),
                           Text(
                             textAlign: TextAlign.center,
                             homeCategories[i].name,

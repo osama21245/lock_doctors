@@ -34,53 +34,53 @@
 
 //   @override
 //   Widget build(BuildContext context) {
-//     return TextFormField(
-//       controller: controller,
-//       decoration: InputDecoration(
-//         isDense: true,
-//         contentPadding: contentPadding ??
-//             EdgeInsets.symmetric(horizontal: 20.w, vertical: 18.h),
-//         focusedBorder: focusedBorder ??
-//             OutlineInputBorder(
-//               borderSide: const BorderSide(
-//                 color: AppPallete.blue,
-//                 width: 1.3,
-//               ),
-//               borderRadius: BorderRadius.circular(16.0),
-//             ),
-//         enabledBorder: enabledBorder ??
-//             OutlineInputBorder(
-//               borderSide: const BorderSide(
-//                 color: AppPallete.greyColor,
-//                 width: 1.3,
-//               ),
-//               borderRadius: BorderRadius.circular(16.0),
-//             ),
-//         errorBorder: OutlineInputBorder(
-//           borderSide: const BorderSide(
-//             color: Colors.red,
-//             width: 1.3,
-//           ),
-//           borderRadius: BorderRadius.circular(16.0),
-//         ),
-//         focusedErrorBorder: OutlineInputBorder(
-//           borderSide: const BorderSide(
-//             color: Colors.red,
-//             width: 1.3,
-//           ),
-//           borderRadius: BorderRadius.circular(16.0),
-//         ),
-//         hintStyle: hintStyle ?? TextStyles.font14LightGrayRegular,
-//         hintText: hintText,
-//         suffixIcon: suffixIcon,
-//         fillColor: backgroundColor ?? AppPallete.greyColor,
-//         filled: true,
-//       ),
-//       obscureText: isObscureText ?? false,
-//       style: TextStyles.font14DarkBlueMedium,
-//       validator: (value) {
-//         return validator(value);
-//       },
-//     );
+    // return TextFormField(
+    //   controller: controller,
+    //   decoration: InputDecoration(
+    //     isDense: true,
+    //     contentPadding: contentPadding ??
+    //         EdgeInsets.symmetric(horizontal: 20.w, vertical: 18.h),
+    //     focusedBorder: focusedBorder ??
+    //         OutlineInputBorder(
+    //           borderSide: const BorderSide(
+    //             color: AppPallete.blue,
+    //             width: 1.3,
+    //           ),
+    //           borderRadius: BorderRadius.circular(16.0),
+    //         ),
+    //     enabledBorder: enabledBorder ??
+    //         OutlineInputBorder(
+    //           borderSide: const BorderSide(
+    //             color: AppPallete.greyColor,
+    //             width: 1.3,
+    //           ),
+    //           borderRadius: BorderRadius.circular(16.0),
+    //         ),
+    //     errorBorder: OutlineInputBorder(
+    //       borderSide: const BorderSide(
+    //         color: Colors.red,
+    //         width: 1.3,
+    //       ),
+    //       borderRadius: BorderRadius.circular(16.0),
+    //     ),
+    //     focusedErrorBorder: OutlineInputBorder(
+    //       borderSide: const BorderSide(
+    //         color: Colors.red,
+    //         width: 1.3,
+    //       ),
+    //       borderRadius: BorderRadius.circular(16.0),
+    //     ),
+    //     hintStyle: hintStyle ?? TextStyles.font14LightGrayRegular,
+    //     hintText: hintText,
+    //     suffixIcon: suffixIcon,
+    //     fillColor: backgroundColor ?? AppPallete.greyColor,
+    //     filled: true,
+    //   ),
+    //   obscureText: isObscureText ?? false,
+    //   style: TextStyles.font14DarkBlueMedium,
+    //   validator: (value) {
+    //     return validator(value);
+    //   },
+    // );
 //   }
 // }

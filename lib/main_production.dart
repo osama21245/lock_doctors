@@ -9,7 +9,6 @@ import 'package:lock_doctors/init_dependencies.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'core/common/entities/user.dart';
-import 'core/utils/get_user_data.dart';
 import 'features/auth/presentation/bloc/auth_bloc.dart';
 
 void main() async {
@@ -39,18 +38,18 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   User? user;
-  @override
-  void initState() {
-    super.initState();
-    _initializeUser();
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   _initializeUser();
+  // }
 
-  Future<void> _initializeUser() async {
-    user = await getUserInit();
-    if (mounted && user != null) {
-      context.read<AppUserCubit>().updateUser(user);
-    }
-  }
+  // Future<void> _initializeUser() async {
+  //   user = await getUserInit();
+  //   if (mounted && user != null) {
+  //     context.read<AppUserCubit>().updateUser(user);
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {

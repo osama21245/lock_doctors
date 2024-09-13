@@ -1,6 +1,10 @@
 class Apilinks {
   static const String baseUrl = 'https://lockapp.site/main_app/doctors/';
 
+  //auth links
+
+  static const String linkLogin = "${baseUrl}login.php";
+
   //set faceId model
   static const String linkSetFaceIdModel =
       'https://cac9-156-217-169-34.ngrok-free.app/submit';

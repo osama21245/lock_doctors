@@ -14,16 +14,6 @@ class CustomEmailAndPassword extends StatefulWidget {
 }
 
 class _CustomEmailAndPasswordState extends State<CustomEmailAndPassword> {
-  bool isObscureText = true;
-
-  late TextEditingController passwordController;
-
-  @override
-  void initState() {
-    super.initState();
-    passwordController = context.read<AuthBloc>().passwordController;
-  }
-
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -60,7 +50,8 @@ class _CustomEmailAndPasswordState extends State<CustomEmailAndPassword> {
 
   @override
   void dispose() {
-    passwordController.dispose();
+    // context.read<AuthBloc>().passwordController.dispose();
+    // context.read<AuthBloc>().emailController.dispose();
     super.dispose();
   }
 }
