@@ -16,6 +16,8 @@ class CustomSearchResult extends StatelessWidget {
       listener: (context, state) {
         if (state is StudentSearchForStudentSuccess) {
           users = state.users;
+        } else if (state is StudentFailed) {
+          users.clear();
         }
       },
       builder: (context, state) {
@@ -29,8 +31,13 @@ class CustomSearchResult extends StatelessWidget {
                     padding: EdgeInsets.symmetric(vertical: 10.0.h),
                     child: searchCard(user: users[index]));
               }
-              if (state is StudentSearchForStudentSuccess) {
-                return const SizedBox();
+              if (state is StudentFailed) {
+                return const Padding(
+                  padding: EdgeInsets.only(top: 15.0),
+                  child: Center(
+                    child: Text("There is no result"),
+                  ),
+                );
               }
               return const Center(
                 child: CircularProgressIndicator(),

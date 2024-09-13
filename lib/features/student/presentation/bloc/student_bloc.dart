@@ -30,7 +30,6 @@ class StudentBloc extends Bloc<StudentEvent, StudentState> {
   }
   ScrollController searchScrollController = ScrollController();
   double currentScrollPosition = 0.0;
-  int limit = 5;
 
   Future<void> _giveBounesfun(
     StudentGiveBonus event,

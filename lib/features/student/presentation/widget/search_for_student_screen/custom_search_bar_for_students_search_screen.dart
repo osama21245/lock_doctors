@@ -21,13 +21,14 @@ class _CustomSearchBarForStudentsSearchScreenState
     extends State<CustomSearchBarForStudentsSearchScreen> {
   TextEditingController? _searchInputController;
   final formKey = GlobalKey<FormState>();
+  int limit = 5;
 
   final Timer _timer =
       Timer.periodic(const Duration(seconds: 5), (timer) async {});
 
   void _search(int limit, String searchInput) {
     context.read<StudentBloc>().add(StudentSearchForStudent(
-        limit: limit.toString(), searchInput: _searchInputController!.text));
+        limit: limit.toString(), searchInput: searchInput));
   }
 
   void addListner() {
@@ -39,7 +40,7 @@ class _CustomSearchBarForStudentsSearchScreenState
               .maxScrollExtent ==
           context.read<StudentBloc>().searchScrollController.offset;
       if (isReachToEndOfTheList) {
-        final limit = context.read<StudentBloc>().limit + 2;
+        limit += 2;
         _search(limit, _searchInputController!.text);
       }
     });
@@ -84,7 +85,7 @@ class _CustomSearchBarForStudentsSearchScreenState
               child: TextFormField(
                 controller: _searchInputController,
                 onChanged: (value) {
-                  _search(context.read<StudentBloc>().limit, value);
+                  _search(limit, value);
                 },
                 decoration: InputDecoration(
                   focusedBorder: InputBorder.none,
