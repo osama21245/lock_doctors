@@ -23,8 +23,8 @@ class HomeScreen extends StatelessWidget {
           .add(HomeGetTodaysSessions(doctorId: "4", day: "Fri"));
     }
 
-    final user =
-        (BlocProvider.of<AppUserCubit>(context).state as AppUserIsLogIn).user;
+    // final user =
+    //     (BlocProvider.of<AppUserCubit>(context).state as AppUserIsLogIn).user;
 
     return Scaffold(
       body: BlocListener<HomeBloc, HomeState>(
@@ -65,8 +65,8 @@ class HomeScreen extends StatelessWidget {
                           padding: EdgeInsets.symmetric(
                               vertical: 8.0.h, horizontal: 25.0.w),
                           child: Text(
-                            //"Today Sessions",
-                            user.email,
+                            "Today Sessions",
+                            // user.email,
                             textAlign: TextAlign.left,
                             style: TextStyles.font15GreyMedium,
                           ),

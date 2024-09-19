@@ -45,6 +45,9 @@ class DoctorBloc extends Bloc<DoctorEvent, DoctorState> {
         _getStudentTotalAttendTimeForOneMaterialfun);
   }
 
+  List<Materials> materials = [];
+  int? selectedMaterialId;
+
   void _getDoctorMaterialsfun(
     DoctorGetDoctorMaterials event,
     Emitter<DoctorState> emit,
@@ -55,7 +58,12 @@ class DoctorBloc extends Bloc<DoctorEvent, DoctorState> {
 
     res.fold(
       (l) => emit(DoctorFailed(l.erorr.toString())),
-      (r) => emit(DoctorGetMaterialsSuccess(r)),
+      (r) {
+        materials = r;
+        selectedMaterialId = r.last.materialId;
+        print(selectedMaterialId);
+        emit(DoctorGetMaterialsSuccess(r));
+      },
     );
   }
 

@@ -19,13 +19,13 @@ class Crud {
         body: data,
         headers: {'Content-Type': 'application/x-www-form-urlencoded'},
       );
-      // print('Response status: ${response.statusCode}');
-      // print('Response body: ${response.body}');
+      print('Response status: ${response.statusCode}');
+      print('Response body: ${response.body}');
 
       if (response.statusCode == ResponseCode.SUCCESS ||
           response.statusCode == ResponseCode.NO_CONTENT) {
         Map responseBody = jsonDecode(response.body);
-        // print(responseBody);
+        print(responseBody);
         return responseBody;
       } else {
         // Handle the error based on the response code

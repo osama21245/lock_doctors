@@ -5,8 +5,8 @@ import '../../../../../core/helpers/spacer.dart';
 import '../../../../../core/theme/font_weight_helper.dart';
 import '../custom_curved_line_image_with_text.dart';
 
-class CustomInfoCard extends StatelessWidget {
-  const CustomInfoCard({super.key});
+class CustomBasicInfoCard extends StatelessWidget {
+  const CustomBasicInfoCard({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,7 @@ class CustomInfoCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Osama ahmed osama ahmed",
+                      "Osama Total Attending At:",
                       style: TextStyle(
                           fontSize: 19.h,
                           fontFamily: "Inter",

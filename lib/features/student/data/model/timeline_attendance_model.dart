@@ -6,11 +6,13 @@ class TimelineAttendanceModel {
   final String sessionDateTime;
   final String materialName;
   final String userName;
+  final String room;
   TimelineAttendanceModel({
     required this.attend,
     required this.sessionDateTime,
     required this.materialName,
     required this.userName,
+    required this.room,
   });
 
   TimelineAttendanceModel copyWith({
@@ -18,12 +20,14 @@ class TimelineAttendanceModel {
     String? sessionDateTime,
     String? materialName,
     String? userName,
+    String? room,
   }) {
     return TimelineAttendanceModel(
       attend: attend ?? this.attend,
       sessionDateTime: sessionDateTime ?? this.sessionDateTime,
       materialName: materialName ?? this.materialName,
       userName: userName ?? this.userName,
+      room: room ?? this.room,
     );
   }
 
@@ -33,6 +37,7 @@ class TimelineAttendanceModel {
       'session_datetime': sessionDateTime,
       'material_name': materialName,
       'user_name': userName,
+      'room': room,
     };
   }
 
@@ -42,6 +47,7 @@ class TimelineAttendanceModel {
       sessionDateTime: map['session_datetime'] as String,
       materialName: map['material_name'] as String,
       userName: map['user_name'] as String,
+      room: map['room'] as String,
     );
   }
 
@@ -53,7 +59,7 @@ class TimelineAttendanceModel {
 
   @override
   String toString() {
-    return 'TimelineAttendanceModel(attend: $attend, sessionDateTime: $sessionDateTime, materialName: $materialName, userName: $userName)';
+    return 'TimelineAttendanceModel(attend: $attend, sessionDateTime: $sessionDateTime, materialName: $materialName, userName: $userName, room: $room)';
   }
 
   @override
@@ -63,7 +69,8 @@ class TimelineAttendanceModel {
     return other.attend == attend &&
         other.sessionDateTime == sessionDateTime &&
         other.materialName == materialName &&
-        other.userName == userName;
+        other.userName == userName &&
+        other.room == room;
   }
 
   @override
@@ -71,6 +78,7 @@ class TimelineAttendanceModel {
     return attend.hashCode ^
         sessionDateTime.hashCode ^
         materialName.hashCode ^
-        userName.hashCode;
+        userName.hashCode ^
+        room.hashCode;
   }
 }

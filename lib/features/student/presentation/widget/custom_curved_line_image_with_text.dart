@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lock_doctors/core/theme/font_weight_helper.dart';
 
-import '../../../../../core/helpers/spacer.dart';
+import '../../../../core/helpers/spacer.dart';
 
 class CustomCurvedLineImageWithText extends StatelessWidget {
   final String text;

@@ -28,9 +28,9 @@ class CustomTopBar extends StatelessWidget {
             style: TextStyles.font25WhiteBold,
           ),
           Image.asset(
-            "assets/image/gold_lock.png",
-            width: 28.w,
-            height: 28.h,
+            "assets/image/top_bar_logo.png",
+            width: 32.w,
+            height: 33.09.h,
           ),
         ],
       ),

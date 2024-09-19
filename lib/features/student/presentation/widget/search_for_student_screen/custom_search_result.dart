@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lock_doctors/core/common/entities/user_model.dart';
+import 'package:lock_doctors/core/helpers/spacer.dart';
 import 'package:lock_doctors/core/theme/app_pallete.dart';
 import 'package:lock_doctors/features/student/presentation/bloc/student_bloc.dart';
 import '../../../../../core/theme/style.dart';
@@ -22,27 +23,33 @@ class CustomSearchResult extends StatelessWidget {
       },
       builder: (context, state) {
         return Expanded(
-          child: ListView.builder(
-            controller: context.read<StudentBloc>().searchScrollController,
-            itemCount: users.length + 1,
-            itemBuilder: (context, index) {
-              if (index < users.length) {
-                return Padding(
-                    padding: EdgeInsets.symmetric(vertical: 10.0.h),
-                    child: searchCard(user: users[index]));
-              }
-              if (state is StudentFailed) {
-                return const Padding(
-                  padding: EdgeInsets.only(top: 15.0),
-                  child: Center(
-                    child: Text("There is no result"),
-                  ),
-                );
-              }
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            },
+          child: Padding(
+            padding: EdgeInsets.only(right: 10.0.w),
+            child: ListView.builder(
+              controller: context.read<StudentBloc>().searchScrollController,
+              itemCount: users.length + 1,
+              itemBuilder: (context, index) {
+                if (index < users.length) {
+                  return Padding(
+                      padding: EdgeInsets.symmetric(vertical: 10.0.h),
+                      child: searchCard(user: users[index]));
+                }
+                if (state is StudentFailed) {
+                  return Padding(
+                    padding: EdgeInsets.only(top: 15.0.h),
+                    child: const Center(
+                      child: Text("There is no result"),
+                    ),
+                  );
+                }
+                if (state is StudentLoading) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+                return null;
+              },
+            ),
           ),
         );
       },
@@ -62,7 +69,7 @@ class CustomSearchResult extends StatelessWidget {
               "assets/image/search_card.png",
             ),
             Padding(
-              padding: EdgeInsets.only(left: 90.0.w),
+              padding: EdgeInsets.only(top: 10.0.h, left: 120.0.w),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -72,27 +79,53 @@ class CustomSearchResult extends StatelessWidget {
                   cardText("Email", user.email),
                   cardText("Round", user.round.toString()),
                   cardText("Level", user.level.toString()),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      ElevatedButton(
-                          style: ButtonStyle(
-                              backgroundColor: WidgetStateProperty.all<Color>(
-                                  AppPallete.lightGreenAndGrey70Transparent)),
+                  Padding(
+                    padding: EdgeInsets.only(right: 44.0.w),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        MaterialButton(
+                          height: 26.h,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20.r)),
                           onPressed: () {},
+                          color: AppPallete.lightGreenAndGrey70Transparent,
                           child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               const Icon(
                                 Icons.av_timer_outlined,
                                 color: AppPallete.lightBlackColor,
                               ),
+                              horizontalSpace(5),
                               Text(
                                 "more info",
                                 style: TextStyles.font11SemiBoldlightBlack,
                               )
                             ],
-                          ))
-                    ],
+                          ),
+                        )
+                        // ElevatedButton(
+                        //     style: ButtonStyle(
+                        //         backgroundColor: WidgetStateProperty.all<Color>(
+                        //             AppPallete.lightGreenAndGrey70Transparent)),
+                        //     onPressed: () {},
+                        //     child: Row(
+                        //       mainAxisAlignment: MainAxisAlignment.center,
+                        //       children: [
+                        //         const Icon(
+                        //           Icons.av_timer_outlined,
+                        //           color: AppPallete.lightBlackColor,
+                        //         ),
+                        //         horizontalSpace(5),
+                        //         Text(
+                        //           "more info",
+                        //           style: TextStyles.font11SemiBoldlightBlack,
+                        //         )
+                        //       ],
+                        //     ))
+                      ],
+                    ),
                   )
                 ],
               ),

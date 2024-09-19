@@ -25,12 +25,14 @@ class SearchForStudentScreen extends StatelessWidget {
         child: AppBackgroundColor(
             screenContent: SafeArea(
                 child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             verticalSpace(20),
             const CustomTopBar(
-              text: "Student Info",
+              text: "Search",
             ),
             const CustomSearchBarForStudentsSearchScreen(),
+            verticalSpace(10),
             const CustomSearchResult()
           ],
         ))),

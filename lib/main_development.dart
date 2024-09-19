@@ -14,6 +14,7 @@ import 'features/auth/presentation/bloc/auth_bloc.dart';
 
 import 'features/student/presentation/bloc/student_bloc.dart';
 import 'features/student/presentation/screens/search_for_student_screen.dart';
+import 'features/student/presentation/screens/student_info_for_serch_screen.dart';
 import 'features/student/presentation/screens/student_info_screen.dart';
 
 void main() async {

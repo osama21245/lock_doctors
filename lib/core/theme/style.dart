@@ -91,6 +91,13 @@ class TextStyles {
       letterSpacing: 4.h,
       fontWeight: FontWeightHelper.bold);
 
+  static TextStyle font20WhiteBold = TextStyle(
+      color: AppPallete.whiteColor,
+      fontSize: 13.53.h,
+      fontFamily: "Inter",
+      letterSpacing: 4.h,
+      fontWeight: FontWeightHelper.bold);
+
   static TextStyle font27WhiteLight = TextStyle(
       color: AppPallete.whiteColor,
       fontSize: 27.3.h,
@@ -171,6 +178,7 @@ class TextStyles {
   static TextStyle font13SemiBold80White = TextStyle(
     fontFamily: "Inter",
     color: AppPallete.white80TransperentColor,
+    height: 0.9.h,
     fontWeight: FontWeightHelper.semiBold,
     fontSize: 13.h,
   );
@@ -178,6 +186,7 @@ class TextStyles {
   static TextStyle font10SemiBold50white = TextStyle(
     fontFamily: "Inter",
     color: AppPallete.white50TransperentColor,
+    height: 0.9.h,
     fontWeight: FontWeightHelper.semiBold,
     fontSize: 10.h,
   );
