@@ -1,12 +1,13 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:lock_doctors/core/const/helping_lists.dart';
-import 'package:lock_doctors/features/home/presentation/widgets/custom_slider_card.dart';
+import 'package:lock_doctors/features/home/presentation/widgets/home/custom_slider_card.dart';
 
-import '../bloc/home_bloc.dart';
+import '../../bloc/home_bloc.dart';
 
 class CustomSlider extends StatelessWidget {
   final String doctorId;
@@ -21,18 +22,20 @@ class CustomSlider extends StatelessWidget {
           return const Center(child: CircularProgressIndicator());
         } else if (state is HomeGetTodaysSessionsSuccess) {
           final todaysSessions = state.todaysSessions;
-          return SizedBox(
-            height: 240.72.h,
-            child: CarouselSlider(
-                items: List.generate(
-                  todaysSessions.length > 3 ? 3 : todaysSessions.length,
-                  (i) => CustomSliderCard(
-                    materialName: todaysSessions[i].materialName,
-                    image: todaysSessionsSliderImages[i],
-                  ),
-                ),
-                options: carouselOptions()),
-          );
+          return ZoomIn(
+              duration: const Duration(milliseconds: 2000),
+              child: SizedBox(
+                height: 240.72.h,
+                child: CarouselSlider(
+                    items: List.generate(
+                      todaysSessions.length > 3 ? 3 : todaysSessions.length,
+                      (i) => CustomSliderCard(
+                        materialName: todaysSessions[i].materialName,
+                        image: todaysSessionsSliderImages[i],
+                      ),
+                    ),
+                    options: carouselOptions()),
+              ));
         }
         return const Center(
           child: CircularProgressIndicator(),

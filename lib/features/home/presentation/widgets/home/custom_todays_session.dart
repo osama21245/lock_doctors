@@ -1,10 +1,11 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lock_doctors/core/theme/app_pallete.dart';
 import 'package:lock_doctors/core/theme/style.dart';
-import '../../../../core/utils/get_data_from_static_lists.dart';
-import '../bloc/home_bloc.dart';
+import '../../../../../core/utils/get_data_from_static_lists.dart';
+import '../../bloc/home_bloc.dart';
 import 'package:lock_doctors/features/home/domain/entity/todays_sessions.dart';
 
 class CustomTodaysSessions extends StatelessWidget {
@@ -12,6 +13,12 @@ class CustomTodaysSessions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    void runDoctorSession(
+        {required String doctorId, required String timeTableID}) {
+      context.read<HomeBloc>().add(
+          HomeRunDoctorSession(doctorId: doctorId, timeTableID: timeTableID));
+    }
+
     return BlocBuilder<HomeBloc, HomeState>(
       builder: (context, state) {
         if (state is HomeGetTodaysSessionsSuccess) {
@@ -19,8 +26,14 @@ class CustomTodaysSessions extends StatelessWidget {
           return Expanded(
             child: ListView.builder(
                 itemCount: state.todaysSessions.length,
-                itemBuilder: (context, i) =>
-                    todaySessionsCard(i, todaysSessions)),
+                itemBuilder: (context, i) => FadeInDown(
+                    duration: Duration(milliseconds: 200 * ((i + 1) * 2)),
+                    child: todaySessionsCard(
+                        i,
+                        todaysSessions,
+                        () => runDoctorSession(
+                            doctorId: todaysSessions[i].doctorId.toString(),
+                            timeTableID: todaysSessions[i].id.toString())))),
           );
         }
         return const SizedBox();
@@ -28,7 +41,8 @@ class CustomTodaysSessions extends StatelessWidget {
     );
   }
 
-  ListTile todaySessionsCard(int i, List<TodaysSessions> todaysSessions) {
+  ListTile todaySessionsCard(
+      int i, List<TodaysSessions> todaysSessions, void Function() onpress) {
     return ListTile(
         leading: Container(
           height: 53.19.h,
@@ -54,14 +68,19 @@ class CustomTodaysSessions extends StatelessWidget {
         trailing: OutlinedButton(
             style: ButtonStyle(
               side: WidgetStateProperty.all<BorderSide>(
-                const BorderSide(
-                    color: Color(0xffB7FDF4),
+                BorderSide(
+                    color: todaysSessions[i].isRunning == 1
+                        ? AppPallete.pinkyRed
+                        : AppPallete.lightBlueColor,
                     width: 2.0), // Change color and width here
               ),
               overlayColor:
                   WidgetStateProperty.all<Color>(AppPallete.lightBlueColor),
             ),
-            onPressed: () {},
-            child: Text("Start", style: TextStyles.font11LigtBlueMedium)));
+            onPressed: onpress,
+            child: Text(todaysSessions[i].isRunning == 1 ? "Running" : "Start",
+                style: todaysSessions[i].isRunning == 1
+                    ? TextStyles.font11PinkyRedMedium
+                    : TextStyles.font11LigtBlueMedium)));
   }
 }

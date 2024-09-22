@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../core/helpers/spacer.dart';
-import '../../../../core/theme/style.dart';
+import '../../../../../core/helpers/spacer.dart';
+import '../../../../../core/theme/style.dart';
 
 class CustomSliderCard extends StatelessWidget {
   final String materialName;
