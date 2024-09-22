@@ -2,20 +2,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lock_doctors/core/common/cubit/app_user/app_user_cubit.dart';
 import 'package:lock_doctors/core/routing/app_router.dart';
 import 'package:lock_doctors/core/theme/theme_data.dart';
-
 import 'package:lock_doctors/features/doctor/presentation/bloc/doctor_bloc.dart';
 import 'package:lock_doctors/features/home/presentation/bloc/home_bloc.dart';
-
+import 'package:lock_doctors/features/home/presentation/screens/home_screen.dart';
 import 'package:lock_doctors/init_dependencies.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'features/auth/presentation/bloc/auth_bloc.dart';
-
-import 'features/student/presentation/bloc/student_bloc.dart';
-import 'features/student/presentation/screens/search_for_student_screen.dart';
-import 'features/student/presentation/screens/student_info_for_serch_screen.dart';
-import 'features/student/presentation/screens/student_info_screen.dart';
+import 'features/home/presentation/screens/running_sessions_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,7 +22,6 @@ void main() async {
         BlocProvider(create: (_) => serviceLocator<AuthBloc>()),
         BlocProvider(create: (_) => serviceLocator<DoctorBloc>()),
         BlocProvider(create: (_) => serviceLocator<HomeBloc>()),
-        BlocProvider(create: (_) => serviceLocator<StudentBloc>()),
         BlocProvider(create: (_) => serviceLocator<AppUserCubit>()),
       ],
       child: MyApp(
@@ -69,9 +62,9 @@ class _MyAppState extends State<MyApp> {
         home: BlocBuilder<AppUserCubit, AppUserState>(
           builder: (context, state) {
             if (state is AppUserIsLogIn) {
-              return const SearchForStudentScreen();
+              return const HomeScreen();
             } else {
-              return const SearchForStudentScreen();
+              return const HomeScreen();
             }
           },
         ),

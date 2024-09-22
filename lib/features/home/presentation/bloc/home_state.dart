@@ -26,3 +26,21 @@ final class HomeGetTodaysSessionsSuccess extends HomeState {
 
   HomeGetTodaysSessionsSuccess(this.todaysSessions);
 }
+
+final class HomeRunDoctorSessionSuccess extends HomeState {
+  HomeRunDoctorSessionSuccess();
+}
+
+final class HomeGetDoctorRunningSessionSuccess extends HomeState {
+  final List<RunningSessions> runningSessions;
+
+  HomeGetDoctorRunningSessionSuccess(this.runningSessions);
+}
+
+final class HomeCancleDoctorSessionSuccess extends HomeState {
+  HomeCancleDoctorSessionSuccess();
+}
+
+final class HomeFinishDoctorSessionSuccess extends HomeState {
+  HomeFinishDoctorSessionSuccess();
+}

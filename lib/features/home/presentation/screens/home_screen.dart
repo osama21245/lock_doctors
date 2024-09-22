@@ -3,14 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lock_doctors/core/common/widget/app_background_color.dart';
 import 'package:lock_doctors/core/utils/show_snack_bar.dart';
-import 'package:lock_doctors/features/home/presentation/widgets/custom_doctor_profile.dart';
-import 'package:lock_doctors/features/home/presentation/widgets/custom_home_categories.dart';
-import 'package:lock_doctors/features/home/presentation/widgets/custom_slider.dart';
-import '../../../../core/common/cubit/app_user/app_user_cubit.dart';
+import 'package:lock_doctors/features/home/presentation/widgets/home/custom_doctor_profile.dart';
+import 'package:lock_doctors/features/home/presentation/widgets/home/custom_home_categories.dart';
+import 'package:lock_doctors/features/home/presentation/widgets/home/custom_slider.dart';
 import '../../../../core/helpers/spacer.dart';
 import '../../../../core/theme/style.dart';
 import '../bloc/home_bloc.dart';
-import '../widgets/custom_todays_session.dart';
+import '../widgets/home/custom_todays_session.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -30,6 +29,8 @@ class HomeScreen extends StatelessWidget {
       body: BlocListener<HomeBloc, HomeState>(
         listener: (context, state) {
           if (state is HomeGetSemesterSuccess) {
+            getTodaySessions();
+          } else if (state is HomeRunDoctorSessionSuccess) {
             getTodaySessions();
           } else if (state is HomeFailed) {
             showSnackBar(context, state.message);
