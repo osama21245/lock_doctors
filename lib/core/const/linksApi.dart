@@ -15,6 +15,18 @@ class Apilinks {
   static const String linkGetTodaysSessions =
       "${baseUrl}get_doctor_todays_sessions.php";
 
+  static const String linkRunDoctorSession =
+      "${baseUrl}run_doctor_sessions.php";
+
+  static const String linkGetDoctorRunningSessions =
+      "${baseUrl}get_doctor_todays_running_sessions.php";
+
+  static const String linkCancelDoctorSession =
+      "${baseUrl}cancel_doctor_sessions.php";
+
+  static const String linkFinishDoctorSession =
+      "${baseUrl}finish_doctor_sessions.php";
+
   //doctor feature links
 
   static const String linkGetDoctorMaterials =

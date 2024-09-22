@@ -84,6 +84,12 @@ class TextStyles {
       fontFamily: "Inter",
       fontWeight: FontWeightHelper.medium);
 
+  static TextStyle font11PinkyRedMedium = TextStyle(
+      color: AppPallete.pinkyRed,
+      fontSize: 11.89.h,
+      fontFamily: "Inter",
+      fontWeight: FontWeightHelper.medium);
+
   static TextStyle font25WhiteBold = TextStyle(
       color: AppPallete.whiteColor,
       fontSize: 25.53.h,

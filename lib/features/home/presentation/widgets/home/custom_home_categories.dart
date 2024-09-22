@@ -5,7 +5,7 @@ import 'package:lock_doctors/core/helpers/spacer.dart';
 import 'package:lock_doctors/core/theme/app_pallete.dart';
 import 'package:lock_doctors/features/home/presentation/helpers/home_categories_class.dart';
 
-import '../../../../core/theme/style.dart';
+import '../../../../../core/theme/style.dart';
 
 class CustomHomeCategories extends StatelessWidget {
   const CustomHomeCategories({super.key});

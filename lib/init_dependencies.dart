@@ -20,8 +20,12 @@ import 'package:lock_doctors/features/doctor/domain/usecases/get_student_total_a
 import 'package:lock_doctors/features/doctor/domain/usecases/get_students_attendance_for_A_session.dart';
 import 'package:lock_doctors/features/doctor/presentation/bloc/doctor_bloc.dart';
 import 'package:lock_doctors/features/home/data/datasource/home_remote_datasourse.dart';
+import 'package:lock_doctors/features/home/domain/usecases/cancel_doctor_session.dart';
+import 'package:lock_doctors/features/home/domain/usecases/finish_doctor_session.dart';
+import 'package:lock_doctors/features/home/domain/usecases/get_doctor_running_sessions.dart';
 import 'package:lock_doctors/features/home/domain/usecases/get_semesters.dart';
 import 'package:lock_doctors/features/home/domain/usecases/get_todays_sessions.dart';
+import 'package:lock_doctors/features/home/domain/usecases/run_doctor_session.dart';
 import 'package:lock_doctors/features/student/data/datasource/student_remote_data_source.dart';
 
 import 'features/auth/data/datasources/auth_local_data_source.dart';
@@ -113,9 +117,19 @@ void _initHome() {
 
   serviceLocator.registerFactory(() => GetSemesters(serviceLocator()));
   serviceLocator.registerFactory(() => GetTodaysSessions(serviceLocator()));
+  serviceLocator.registerFactory(() => RunDoctorSession(serviceLocator()));
+  serviceLocator
+      .registerFactory(() => GetDoctorRunningSessions(serviceLocator()));
+  serviceLocator.registerFactory(() => CancelDoctorSession(serviceLocator()));
+  serviceLocator.registerFactory(() => FinishDoctorSession(serviceLocator()));
 
   serviceLocator.registerLazySingleton(() => HomeBloc(
-      getSemesters: serviceLocator(), getTodaysSessions: serviceLocator()));
+      getSemesters: serviceLocator(),
+      getTodaysSessions: serviceLocator(),
+      runDoctorSession: serviceLocator(),
+      getDoctorRunningSessions: serviceLocator(),
+      cancleDoctorSession: serviceLocator(),
+      finishDoctorSession: serviceLocator()));
 }
 
 void _initStudent() {
