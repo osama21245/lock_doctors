@@ -62,9 +62,9 @@ class _MyAppState extends State<MyApp> {
         home: BlocBuilder<AppUserCubit, AppUserState>(
           builder: (context, state) {
             if (state is AppUserIsLogIn) {
-              return const HomeScreen();
+              return const RunningSessionsScreen();
             } else {
-              return const HomeScreen();
+              return const RunningSessionsScreen();
             }
           },
         ),
