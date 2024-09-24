@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lock_doctors/core/helpers/spacer.dart';
 import 'package:lock_doctors/core/theme/font_weight_helper.dart';
+import 'package:lock_doctors/features/home/domain/usecases/cancel_doctor_session.dart';
 
 import '../../bloc/home_bloc.dart';
 import 'package:lock_doctors/features/home/domain/entity/running_sessions.dart';
@@ -40,7 +41,9 @@ class _CustomRunningSessionsState extends State<CustomRunningSessions> {
   Widget build(BuildContext context) {
     return BlocBuilder<HomeBloc, HomeState>(
       builder: (context, state) {
-        if (state is HomeGetDoctorRunningSessionSuccess) {
+        if (state is HomeLoading) {
+          return const Center(child: CircularProgressIndicator());
+        } else if (state is HomeGetDoctorRunningSessionSuccess) {
           return Expanded(
             child: ListView.builder(
               itemCount: state.runningSessions.length,
@@ -57,8 +60,6 @@ class _CustomRunningSessionsState extends State<CustomRunningSessions> {
               },
             ),
           );
-        } else if (state is HomeLoading) {
-          return const Center(child: CircularProgressIndicator());
         } else {
           return const SizedBox();
         }
