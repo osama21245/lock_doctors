@@ -13,23 +13,16 @@ class RunningSessionsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: RefreshIndicator(
-            child: const CustomRunningSessionsStateController(
-              child: AppBackgroundColor(
-                  screenContent: SafeArea(
-                      child: Column(
-                children: [
-                  CustomTopBar(text: "Running Sessions"),
-                  CustomRunningSessions()
-                ],
-              ))),
-            ),
-            onRefresh: () async {
-              await Future.delayed(const Duration(seconds: 1), () {});
-              context
-                  .read<HomeBloc>()
-                  .add(HomeGetDoctorRunningSession(doctorId: '4'));
-            }));
+    return const Scaffold(
+        body: CustomRunningSessionsStateController(
+      child: AppBackgroundColor(
+          screenContent: SafeArea(
+              child: Column(
+        children: [
+          CustomTopBar(text: "Running Sessions"),
+          CustomRunningSessions()
+        ],
+      ))),
+    ));
   }
 }
