@@ -85,11 +85,11 @@ class _CustomRunningSessionsState extends State<CustomRunningSessions> {
                 child: Column(
                   children: [
                     const Spacer(),
-                    customSessionText("ID:", session.sessionId.toString()),
-                    customSessionText("Room:", session.room.toString()),
-                    customSessionText("Time:", session.sessionTime.toString()),
                     customSessionText(
                         "Material Name:", session.materialName.toString()),
+                    customSessionText("Room:", session.room.toString()),
+                    customSessionText("Time:", session.sessionTime.toString()),
+                    customSessionText("ID:", session.sessionId.toString()),
                     Row(
                       children: [
                         const Spacer(),
@@ -148,29 +148,44 @@ class _CustomRunningSessionsState extends State<CustomRunningSessions> {
     );
   }
 
-  Row customSessionText(
+  customSessionText(
     String title,
     String subTitle,
   ) {
-    return Row(
-      children: [
-        Text(
-          title,
-          style: TextStyle(
-              fontFamily: "Inter",
-              fontWeight: FontWeightHelper.regular,
-              fontSize: 11.h,
-              color: const Color(0xff383838)),
-        ),
-        Text(
-          subTitle,
-          style: TextStyle(
-              fontFamily: "Inter",
-              fontWeight: FontWeightHelper.bold,
-              fontSize: 11.h,
-              color: const Color(0xff383838)),
-        ),
-      ],
+    return Container(
+      constraints: BoxConstraints(maxWidth: 332.w), // Maximum width set to 332
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Flexible(
+                child: Text(
+                  title,
+                  style: TextStyle(
+                    fontFamily: "Inter",
+                    fontWeight: FontWeightHelper.regular,
+                    fontSize: 11.h,
+                    color: const Color(0xff383838),
+                  ),
+                  overflow: TextOverflow.ellipsis, // Prevents overflowing text
+                ),
+              ),
+              Flexible(
+                child: Text(
+                  subTitle,
+                  style: TextStyle(
+                    fontFamily: "Inter",
+                    fontWeight: FontWeightHelper.bold,
+                    fontSize: 11.h,
+                    color: const Color(0xff383838),
+                  ),
+                  overflow: TextOverflow.ellipsis, // Prevents overflowing text
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }
