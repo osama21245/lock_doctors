@@ -62,6 +62,7 @@ dependencies:
   timeline_tile: ^2.0.0
     # Networking
   dio: ^5.3.3
+  pretty_dio_logger: ^1.4.0
   firebase_core: ^3.3.0
 
   #secure my datas

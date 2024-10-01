@@ -15,6 +15,9 @@
         "program": "lib/main_production.dart",
         "args": ["--flavor", "production", "--target", "lib/main_production.dart" ]
       }
+      
+
+      
     ],
     "compounds": []
   }

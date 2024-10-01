@@ -1,9 +1,10 @@
+import 'package:bloc/bloc.dart';
+import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
-
 import 'package:lock_doctors/core/common/cubit/app_user/app_user_cubit.dart';
 import 'package:lock_doctors/core/erorr/custom_error_screen.dart';
 import 'package:lock_doctors/core/utils/crud.dart';
-
 import 'package:lock_doctors/features/auth/data/datasources/auth_remote_data_source.dart';
 import 'package:lock_doctors/features/auth/data/repositories/auth_repository_ipl.dart';
 import 'package:lock_doctors/features/auth/domain/repository/auth_repository.dart';
@@ -27,11 +28,11 @@ import 'package:lock_doctors/features/home/domain/usecases/get_semesters.dart';
 import 'package:lock_doctors/features/home/domain/usecases/get_todays_sessions.dart';
 import 'package:lock_doctors/features/home/domain/usecases/run_doctor_session.dart';
 import 'package:lock_doctors/features/student/data/datasource/student_remote_data_source.dart';
-
+import 'package:pretty_dio_logger/pretty_dio_logger.dart';
+import 'core/helpers/bloc_observer.dart';
 import 'features/auth/data/datasources/auth_local_data_source.dart';
 import 'features/auth/domain/usecases/set_stud_face_model.dart';
 import 'dart:async';
-
 import 'features/doctor/data/datasource/doctor_remote_data_source.dart';
 import 'features/doctor/domain/repository/doctor_repository.dart';
 import 'features/home/data/repositories/home_repository_impl.dart';
@@ -48,7 +49,7 @@ Future<void> initDependencies() async {
   _initHome();
   _initStudent();
   customErorrScreen();
-
+  addDioInterceptor();
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
 
   SystemChrome.setPreferredOrientations([
@@ -56,24 +57,49 @@ Future<void> initDependencies() async {
     DeviceOrientation.portraitUp,
   ]);
 
+  Bloc.observer = MyBlocObserver();
+
   serviceLocator.registerLazySingleton(() => AppUserCubit());
 }
 
+void addDioInterceptor() {
+  Dio dio = serviceLocator<Dio>();
+  dio.interceptors.add(PrettyDioLogger(
+      requestHeader: true,
+      requestBody: true,
+      responseBody: true,
+      responseHeader: false,
+      error: true,
+      compact: true,
+      maxWidth: 90,
+      enabled: kDebugMode,
+      filter: (options, args) {
+        // don't print requests with uris containing '/posts'
+        if (options.path.contains('/posts')) {
+          return false;
+        }
+        // don't print responses with unit8 list data
+        return !args.isResponse || !args.hasUint8ListData;
+      }));
+}
+
 void _initAuth() {
-  serviceLocator.registerFactory(() => Crud());
-  serviceLocator.registerFactory<AuthRemoteDataSource>(
+  serviceLocator.registerSingleton<Dio>(Dio());
+  serviceLocator.registerLazySingleton(() => Crud(dio: serviceLocator()));
+  serviceLocator.registerLazySingleton<AuthRemoteDataSource>(
       () => AuthRemoteDataSourceImpl(serviceLocator()));
 
-  serviceLocator.registerFactory<AuthLocalDataSource>(
+  serviceLocator.registerLazySingleton<AuthLocalDataSource>(
       () => AuthLocalDataSourceImpl(serviceLocator()));
 
-  serviceLocator.registerFactory<AuthRepository>(
+  serviceLocator.registerLazySingleton<AuthRepository>(
       () => AuthRepositoryImpl(serviceLocator(), serviceLocator()));
-  serviceLocator.registerFactory(() => UserSignIn(serviceLocator()));
-  serviceLocator.registerFactory(() => GetCurrentUser(serviceLocator()));
-  serviceLocator.registerFactory(() => SetStudFaceModel(serviceLocator()));
+  serviceLocator.registerLazySingleton(() => UserSignIn(serviceLocator()));
+  serviceLocator.registerLazySingleton(() => GetCurrentUser(serviceLocator()));
   serviceLocator
-      .registerFactory(() => SetCurrentUserToLocalStorage(serviceLocator()));
+      .registerLazySingleton(() => SetStudFaceModel(serviceLocator()));
+  serviceLocator.registerLazySingleton(
+      () => SetCurrentUserToLocalStorage(serviceLocator()));
 
   serviceLocator.registerLazySingleton(() => AuthBloc(
       userSignIn: serviceLocator(),
@@ -84,20 +110,21 @@ void _initAuth() {
 }
 
 void _initDoctorMaterials() {
-  serviceLocator.registerFactory<DoctorRemoteDataSource>(
+  serviceLocator.registerLazySingleton<DoctorRemoteDataSource>(
       () => DoctorRemoteDataSourceImpl(serviceLocator()));
 
-  serviceLocator.registerFactory<DoctorRepository>(
+  serviceLocator.registerLazySingleton<DoctorRepository>(
       () => DoctorRepositoryImpl(serviceLocator()));
 
-  serviceLocator.registerFactory(() => GetDoctorMaterials(serviceLocator()));
-  serviceLocator.registerFactory(() => GetDoctorLevels(serviceLocator()));
+  serviceLocator
+      .registerLazySingleton(() => GetDoctorMaterials(serviceLocator()));
+  serviceLocator.registerLazySingleton(() => GetDoctorLevels(serviceLocator()));
 
   serviceLocator
-      .registerFactory(() => GetSessionsForMaterial(serviceLocator()));
-  serviceLocator.registerFactory(
+      .registerLazySingleton(() => GetSessionsForMaterial(serviceLocator()));
+  serviceLocator.registerLazySingleton(
       () => GetStudentTotalAttendTimeForOneMaterial(serviceLocator()));
-  serviceLocator.registerFactory(
+  serviceLocator.registerLazySingleton(
       () => GetStudentsAttendanceForASession(serviceLocator()));
 
   serviceLocator.registerLazySingleton(() => DoctorBloc(
@@ -109,19 +136,23 @@ void _initDoctorMaterials() {
 }
 
 void _initHome() {
-  serviceLocator.registerFactory<HomeRemoteDataSource>(
+  serviceLocator.registerLazySingleton<HomeRemoteDataSource>(
       () => HomeRemoteDataSourceImpl(serviceLocator()));
 
-  serviceLocator.registerFactory<HomeRepository>(
+  serviceLocator.registerLazySingleton<HomeRepository>(
       () => HomeRepositoryImpl(serviceLocator()));
 
-  serviceLocator.registerFactory(() => GetSemesters(serviceLocator()));
-  serviceLocator.registerFactory(() => GetTodaysSessions(serviceLocator()));
-  serviceLocator.registerFactory(() => RunDoctorSession(serviceLocator()));
+  serviceLocator.registerLazySingleton(() => GetSemesters(serviceLocator()));
   serviceLocator
-      .registerFactory(() => GetDoctorRunningSessions(serviceLocator()));
-  serviceLocator.registerFactory(() => CancelDoctorSession(serviceLocator()));
-  serviceLocator.registerFactory(() => FinishDoctorSession(serviceLocator()));
+      .registerLazySingleton(() => GetTodaysSessions(serviceLocator()));
+  serviceLocator
+      .registerLazySingleton(() => RunDoctorSession(serviceLocator()));
+  serviceLocator
+      .registerLazySingleton(() => GetDoctorRunningSessions(serviceLocator()));
+  serviceLocator
+      .registerLazySingleton(() => CancelDoctorSession(serviceLocator()));
+  serviceLocator
+      .registerLazySingleton(() => FinishDoctorSession(serviceLocator()));
 
   serviceLocator.registerLazySingleton(() => HomeBloc(
       getSemesters: serviceLocator(),
@@ -133,10 +164,10 @@ void _initHome() {
 }
 
 void _initStudent() {
-  serviceLocator.registerFactory<StudentRemoteDataSource>(
+  serviceLocator.registerLazySingleton<StudentRemoteDataSource>(
       () => StudentRemoteDataSourceImpl(serviceLocator()));
 
-  serviceLocator.registerFactory<StudentRepository>(
+  serviceLocator.registerLazySingleton<StudentRepository>(
       () => StudentRepository(serviceLocator()));
 
   serviceLocator.registerLazySingleton(

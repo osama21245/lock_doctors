@@ -9,7 +9,6 @@ import 'package:lock_doctors/init_dependencies.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'features/auth/presentation/bloc/auth_bloc.dart';
-import 'features/home/presentation/screens/running_sessions_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -62,9 +61,9 @@ class _MyAppState extends State<MyApp> {
         home: BlocBuilder<AppUserCubit, AppUserState>(
           builder: (context, state) {
             if (state is AppUserIsLogIn) {
-              return const RunningSessionsScreen();
+              return const HomeScreen();
             } else {
-              return const RunningSessionsScreen();
+              return const HomeScreen();
             }
           },
         ),

@@ -12,31 +12,35 @@ String _basicAuth = 'Basic ${base64Encode(utf8.encode("osama:osama1234"))}';
 Map<String, String> myheaders = {'authorization': _basicAuth};
 
 class Crud {
-  Future<Map> postData(String link, Map data) async {
+  final Dio dio;
+
+  Crud({required this.dio});
+
+  Future<Map> postData(String link, Map<String, dynamic> data) async {
     try {
-      var response = await http.post(
-        Uri.parse(link),
-        body: data,
-        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+      // Making a POST request using Dio
+      var response = await dio.post(
+        link,
+        data: data,
+        options: Options(
+          contentType: "application/x-www-form-urlencoded",
+        ),
       );
+
       print('Response status: ${response.statusCode}');
-      print('Response body: ${response.body}');
+      print('Response body: ${response.data}');
 
       if (response.statusCode == ResponseCode.SUCCESS ||
           response.statusCode == ResponseCode.NO_CONTENT) {
-        Map responseBody = jsonDecode(response.body);
+        Map responseBody = jsonDecode(response.data);
         print(responseBody);
         return responseBody;
       } else {
         // Handle the error based on the response code
         throw ErrorHandler.handle(
           DioException(
-            response: Response(
-              statusCode: response.statusCode,
-              statusMessage: response.body,
-              requestOptions: RequestOptions(path: link),
-            ),
-            requestOptions: RequestOptions(path: link),
+            response: response,
+            requestOptions: response.requestOptions,
           ),
         );
       }
