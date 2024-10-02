@@ -768,14 +768,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.9.1"
-  pretty_dio_logger:
-    dependency: "direct main"
+  pool:
+    dependency: transitive
     description:
-      name: pretty_dio_logger
-      sha256: "36f2101299786d567869493e2f5731de61ce130faa14679473b26905a92b6407"
+      name: pool
+      sha256: "20fe868b6314b322ea036ba325e6fc0711a22948856475e2c2b6306e8ab39c2a"
       url: "https://pub.dev"
     source: hosted
-    version: "1.4.0"
+    version: "1.5.1"
   provider:
     dependency: transitive
     description:
