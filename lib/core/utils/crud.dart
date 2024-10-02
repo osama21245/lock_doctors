@@ -24,6 +24,8 @@ class Crud {
         data: data,
         options: Options(
           contentType: "application/x-www-form-urlencoded",
+          sendTimeout: const Duration(seconds: 5),
+          receiveTimeout: const Duration(seconds: 5),
         ),
       );
 
@@ -43,6 +45,14 @@ class Crud {
             requestOptions: response.requestOptions,
           ),
         );
+      }
+    } on DioException catch (e) {
+      if (e.type == DioExceptionType.sendTimeout ||
+          e.type == DioExceptionType.receiveTimeout) {
+        print('Request timed out: ${e.message}');
+        throw "Request timed out";
+      } else {
+        throw e.message ?? "Unknown error";
       }
     } catch (e) {
       // Use ErrorHandler to manage exceptions and rethrow with a proper message
