@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lock_doctors/core/common/widget/app_background_color.dart';
 import 'package:lock_doctors/core/utils/show_snack_bar.dart';
+import 'package:lock_doctors/features/doctor/presentation/screens/courses_screen.dart';
+import 'package:lock_doctors/features/doctor/presentation/screens/levels_screen.dart';
 import 'package:lock_doctors/features/home/presentation/widgets/home/custom_doctor_profile.dart';
 import 'package:lock_doctors/features/home/presentation/widgets/home/custom_home_categories.dart';
 import 'package:lock_doctors/features/home/presentation/widgets/home/custom_slider.dart';

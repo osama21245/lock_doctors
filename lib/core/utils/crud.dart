@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:lock_doctors/core/networking/api_erorr_handler.dart';
 
 import '../erorr/exception.dart';
+import '../erorr/netowrk_exception.dart';
 
 String _basicAuth = 'Basic ${base64Encode(utf8.encode("osama:osama1234"))}';
 
@@ -17,6 +18,7 @@ class Crud {
   Crud({required this.dio});
 
   Future<Map> postData(String link, Map<String, dynamic> data) async {
+    int maxretry = 0;
     try {
       // Making a POST request using Dio
       var response = await dio.post(
@@ -51,14 +53,34 @@ class Crud {
           e.type == DioExceptionType.receiveTimeout) {
         print('Request timed out: ${e.message}');
         throw "Request timed out";
+      } else if (e.type == DioExceptionType.connectionError) {
+        if (await _hasInternetAccess() && maxretry < 2) {
+          return postData(link, data);
+        } else {
+          throw "No Internet Connection";
+        }
       } else {
         throw e.message ?? "Unknown error";
       }
     } catch (e) {
-      // Use ErrorHandler to manage exceptions and rethrow with a proper message
       final serverException = ErrorHandler.handle(e).serverException;
       print('Handled error: ${serverException.message}');
       throw serverException.message; // Rethrow with the handled error message
+    }
+  }
+
+  Future<bool> _hasInternetAccess() async {
+    try {
+      final response = await http
+          .get(Uri.parse('https://google.com'))
+          .timeout(const Duration(seconds: 3));
+      if (response.statusCode == 200) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      return false;
     }
   }
 
