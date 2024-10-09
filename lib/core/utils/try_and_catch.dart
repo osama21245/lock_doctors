@@ -18,6 +18,6 @@ Future<Map> executeTryAndCatchForDataLayer(
   try {
     return await action();
   } catch (e) {
-    throw ServerException(message: e.toString());
+    throw e.toString();
   }
 }

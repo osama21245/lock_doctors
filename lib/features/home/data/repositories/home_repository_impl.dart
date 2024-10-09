@@ -24,7 +24,7 @@ class HomeRepositoryImpl implements HomeRepository {
         List semestersInJsonForm = response["data"];
         return convertDataToSemestersModel(semestersInJsonForm);
       } else {
-        throw Exception("There are no sessions available.");
+        throw "There are no sessions available.";
       }
     });
   }
@@ -49,7 +49,7 @@ class HomeRepositoryImpl implements HomeRepository {
         List todaysSessionsInJsonForm = response["data"];
         return convertDataToTodaysSessionsModel(todaysSessionsInJsonForm);
       } else {
-        throw Exception("There are no sessions available.");
+        throw "There are no sessions available.";
       }
     });
   }
